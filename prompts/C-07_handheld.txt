@@ -1,0 +1,16 @@
+subject_definitions:
+<Subject 1> is the young woman in <Picture 1>: long wavy ginger-red hair, fair skin with light freckles, wearing a cream short-sleeve t-shirt, a dark cord necklace with a metal cross pendant, high-waisted blue jeans with a brown leather belt and a small brown pouch, and woven cord wrist wraps on both wrists. Her exact facial structure, features and proportions stay identical to <Picture 1> in every frame.
+
+summary:
+[reference generation] The target video shows <Subject 1> standing still on a snow-covered arctic coastline, in a waist-up medium close-up, as the camera performs a handheld shot.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - her face, identity and clothing are held identical to <Picture 1> in every frame with zero drift.
+
+detailed_description:
+The target video is live-action and cinematic, shot on an ARRI Alexa Mini with a Canon K-35 35mm, handheld and running with her, cold blue-green arctic lighting with the aurora glowing softly overhead, a slightly desaturated palette.
+[Shot 1] A waist-up medium close-up frames <Subject 1> running on the snowy rocky shore, hair flying and clothing snapping with the movement, with dark rocky cliffs, patches of green aurora borealis in the sky, still water, and an old wooden sailing ship with tall masts anchored behind her. The camera shakes strongly at fast speed while performing a tracking shot alongside <Subject 1> as she runs, the frame lurching and correcting with every stride. <Subject 1> runs with urgent purpose, lips pressed closed and jaw set, glancing back once over her shoulder without breaking stride.
+
+overall_soundscape: A faint cold wind continues throughout, with distant creaking from the ship's rigging, and <Subject 1>'s breathing stays audible throughout.
+
+non_diegetic_music: A single sustained low string note swells partway through the shot, then fades toward the end.

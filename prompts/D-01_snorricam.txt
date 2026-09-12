@@ -1,0 +1,16 @@
+subject_definitions:
+<Subject 1> is the young woman in <Picture 1>: long light brown wavy hair, fair freckled skin, round gold-rimmed glasses, wearing a simple white slip dress with thin straps. Her exact facial structure, features and proportions stay identical to <Picture 1> in every frame.
+
+summary:
+[reference generation] The target video shows <Subject 1> standing still in a sunlit summer meadow, in a waist-up medium close-up, as the camera performs a snorricam shot.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - her face, identity and clothing are held identical to <Picture 1> in every frame with zero drift.
+
+detailed_description:
+The target video is live-action and cinematic, shot on an ARRI Alexa Mini with a 14mm wide prime, the camera fixed rigidly to her body so it moves exactly with her, warm soft afternoon sunlight, a bright natural palette.
+[Shot 1] A waist-up medium close-up frames <Subject 1> walking steadily forward in the tall grass, hair and clothing moving with each stride, with dry grass and wildflowers moving in the breeze, a soft distant treeline behind her. <Subject 1> walks steadily forward while the camera, fixed rigidly to her body, holds her face locked dead-centre at exactly the same size and position throughout; the whole background lurches, sways and swings behind her with every stride. <Subject 1> walks with hard, fixed determination, eyes locked forward, jaw tight, never once looking at the camera.
+
+overall_soundscape: Her footfalls and breathing stay close, constant and perfectly steady, while the meadow ambience swings and lurches from side to side around her with every stride.
+
+non_diegetic_music: A relentless two-note pulse locked to her stride, never speeding up or slowing down.

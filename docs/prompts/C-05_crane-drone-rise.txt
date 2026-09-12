@@ -1,0 +1,16 @@
+subject_definitions:
+<Subject 1> is the young woman in <Picture 1>: long light brown wavy hair, fair freckled skin, round gold-rimmed glasses, wearing a simple white slip dress with thin straps. Her exact facial structure, features and proportions stay identical to <Picture 1> in every frame.
+
+summary:
+[reference generation] The target video shows <Subject 1> standing still in a sunlit summer meadow, in a waist-up medium close-up, as the camera performs a crane shot over the head.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - her face, identity and clothing are held identical to <Picture 1> in every frame with zero drift.
+
+detailed_description:
+The target video is live-action and cinematic, shot on a RED V-Raptor with a 35mm prime, flown on a drone tracking alongside her, warm soft afternoon sunlight, a bright natural palette.
+[Shot 1] A waist-up medium close-up frames <Subject 1> running steadily through the tall grass, hair flying and clothing snapping with the movement, with dry grass and wildflowers moving in the breeze, a soft distant treeline behind her. The camera starts low at <Subject 1>'s feet as she runs, then performs a tracking shot with large amplitude at fast speed, pedestalling up and tilting down to follow her from high overhead while she stays centred and sharp in frame. <Subject 1> runs at a steady rhythm with her lips closed and her jaw relaxed, chin level and hair flying, her expression easing out of hard concentration into open delight as the camera lifts away from her.
+
+overall_soundscape: Her footfalls and the hiss of grass close by at the start, thinning out into open air, high wind and distant birdsong.
+
+non_diegetic_music: A single held note that opens outward into a wide major chord across the shot.
