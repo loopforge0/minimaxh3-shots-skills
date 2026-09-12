@@ -1,0 +1,16 @@
+subject_definitions:
+<Subject 1> is the young woman in <Picture 1>: long wavy ginger-red hair, fair skin with light freckles, wearing a cream short-sleeve t-shirt, a dark cord necklace with a metal cross pendant, high-waisted blue jeans with a brown leather belt and a small brown pouch, and woven cord wrist wraps on both wrists. Her exact facial structure, features and proportions stay identical to <Picture 1> in every frame.
+
+summary:
+[reference generation] The target video shows <Subject 1> standing still on a snow-covered arctic coastline, in a waist-up medium close-up, as the camera performs a slow push in to the eyes.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - her face, identity and clothing are held identical to <Picture 1> in every frame with zero drift.
+
+detailed_description:
+The target video is live-action and cinematic, shot on an ARRI Alexa with a Cooke S4 75mm prime, on a slider for a slow push, cold blue-green arctic lighting with the aurora glowing softly overhead, a slightly desaturated palette.
+[Shot 1] A waist-up medium close-up frames <Subject 1> standing in place on the snowy rocky shore, breathing softly, hair and clothing stirring in the air, blinking and shifting her weight a little as people naturally do, with dark rocky cliffs, patches of green aurora borealis in the sky, still water, and an old wooden sailing ship with tall masts anchored behind her. The camera pushes in with large amplitude at slow speed toward <Subject 1>'s face and keeps going past it until her right eye fills the entire frame edge to edge, the iris and pupil filling the view. <Subject 1>'s expression tightens slowly into dread as the camera closes - pupils contracting, a single blink, then held wide and unmoving.
+
+overall_soundscape: Cold wind and distant surf receding steadily into muffled quiet, until nothing is left but one slow heartbeat as the eye fills the frame.
+
+non_diegetic_music: A high sustained string that tightens and narrows as the shot closes in, thinning to a single thread.

@@ -1,0 +1,16 @@
+subject_definitions:
+<Subject 1> is the young woman in <Picture 1>: shoulder-length dark brown wavy hair, fair skin and blue-grey eyes, wearing a chunky oatmeal cable-knit wool sweater. Her exact facial structure, features and proportions stay identical to <Picture 1> in every frame.
+
+summary:
+[reference generation] The target video shows <Subject 1> standing still in a snow-covered pine forest at dusk, in a waist-up medium close-up, as the camera performs a dutch angle shot.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - her face, identity and clothing are held identical to <Picture 1> in every frame with zero drift.
+
+detailed_description:
+The target video is live-action and cinematic, shot on an ARRI Alexa with a Cooke S4 35mm prime, on a tripod with the head canted over, cold blue dusk light filtering down through the pines, a muted desaturated palette.
+[Shot 1] A waist-up medium close-up frames <Subject 1> standing completely still on the snow between the trees, with tall dark conifers receding into blue mist, snow lying heavy on the branches behind her. The camera rolls counterclockwise into a canted dutch angle and holds there, the horizon tilted, <Subject 1> off-axis. As the shot plays out, <Subject 1>'s expression shifts from blank and neutral into dawning realization and slight shock: her eyes widen and focus more intensely, her brow lifts and tightens, her lips part slightly, and her breathing grows visibly shallower and faster, the change building through the middle of the shot and settling into a held, wide-eyed stillness by the end.
+
+overall_soundscape: Deep forest hush, snow settling from branches, a distant crack of timber, and <Subject 1>'s breathing growing faster and shallower as the shot progresses.
+
+non_diegetic_music: A single sustained low string note swells partway through the shot, then fades toward the end.

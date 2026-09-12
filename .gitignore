@@ -1,0 +1,6 @@
+upstream/
+out/
+*.pyc
+__pycache__/
+my-scene.json
+scene.json

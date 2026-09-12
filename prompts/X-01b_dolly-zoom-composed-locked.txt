@@ -1,0 +1,16 @@
+subject_definitions:
+<Subject 1> is the young woman in <Picture 1>: long dark brown wavy hair, warm olive skin and a bright open smile, wearing a white lace-trimmed cropped camisole and high-waisted beige trousers. Her exact facial structure, features and proportions stay identical to <Picture 1> in every frame.
+
+summary:
+[reference generation] The target video shows <Subject 1> standing still in a sunlit city rooftop terrace at golden hour, in a waist-up medium close-up, as the camera performs a dolly zoom.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - her face, identity and clothing are held identical to <Picture 1> in every frame with zero drift.
+
+detailed_description:
+The target video is live-action and cinematic, shot on an IMAX camera with a Petzval 8mm lens, on a dolly running on track, warm golden-hour sunlight with strong lens flare, a rich saturated palette.
+[Shot 1] A waist-up medium close-up frames <Subject 1> standing in place on the warm rooftop deck, with low sun flaring between distant towers, potted plants and strings of lights behind her. Throughout the entire shot <Subject 1>'s size and position in frame stay exactly constant: she is framed identically in the last frame as in the first, neither closer nor further away, and she never drifts from the centre of frame. She faces the camera squarely for the whole shot, with her eyes on the lens, and she never turns her head or her body away from it. She stands rooted to one spot and does not step, lean or shift her weight. The camera pushes in while simultaneously zooming out at exactly the matching rate, so that her size in frame is cancelled out entirely and does not change, while the towers, the string lights and the rooftop deck behind her recede, shrink, and spread apart into much greater depth as the lens's focal length changes. Only the background transforms; <Subject 1> herself is held completely still and completely constant in frame. Her expression tightens from calm into a dawning unease as the world stretches away behind her.
+
+overall_soundscape: City traffic far below and wind moving through the string lights, holding at exactly the same distance and the same level throughout, never getting closer or further away. Only the space behind her changes, and it does so silently.
+
+non_diegetic_music: Two notes a semitone apart sliding slowly against each other, never resolving.

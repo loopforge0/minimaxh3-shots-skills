@@ -1,0 +1,16 @@
+subject_definitions:
+<Subject 1> is the young woman in <Picture 1>: long dark brown wavy hair, warm olive skin and a bright open smile, wearing a white lace-trimmed cropped camisole and high-waisted beige trousers. Her exact facial structure, features and proportions stay identical to <Picture 1> in every frame.
+
+summary:
+[reference generation] The target video shows <Subject 1> standing still in a sunlit city rooftop terrace at golden hour, in a waist-up medium close-up, as the camera performs a dolly zoom.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - her face, identity and clothing are held identical to <Picture 1> in every frame with zero drift.
+
+detailed_description:
+The target video is live-action and cinematic, shot on an ARRI Alexa with a Cooke Varotal 18-100mm zoom lens, on a dolly running on track, warm golden-hour sunlight with strong lens flare, a rich saturated palette.
+[Shot 1] A waist-up medium close-up frames <Subject 1> standing in place on the warm rooftop deck, breathing softly, hair and clothing stirring in the air, blinking and shifting her weight a little as people naturally do, with low sun flaring between distant towers, potted plants and strings of lights behind her. The camera pushes in at slow speed while simultaneously zooming out at exactly the matching rate, so that <Subject 1>'s size and position in frame never change at all, while the towers, the string lights and the rooftop behind her recede, shrink, and spread apart into much greater depth as the lens's focal length changes. <Subject 1> holds still, breathing softly, her expression tightening from calm into a dawning unease as the world stretches away behind her.
+
+overall_soundscape: City traffic far below, wind moving through the string lights, and the quiet hum of the evening.
+
+non_diegetic_music: Two notes a semitone apart sliding slowly against each other, never resolving.
