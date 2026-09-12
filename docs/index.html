@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MiniMax H3 camera shots &middot; Loop Forge</title>
-<meta name="description" content="Fourteen named camera shots in MiniMax H3, with the exact prompt, clip, reference plates and ComfyUI workflow behind each one.">
+<meta name="description" content="The exact prompts behind fourteen named camera shots in MiniMax H3, with the reference plates and the ComfyUI workflow.">
 <link rel="icon" href="assets/loopforge-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,30 +13,32 @@
   :root {
     --ink:#07090c; --slate:#121a20; --slate-2:#1b2730;
     --frost:#e8eff2; --frost-dim:#93a7b2; --line:#2a3a45;
-    --works:#5fe3b1; --pink:#e85bbd; --blue:#5b8ff5;
+    --tone:#b57cf0;
     --r:14px;
   }
+  .g-zoom { --tone:#f06bb8; }
+  .g-specialty { --tone:#b57cf0; }
+  .g-pan-and-roll { --tone:#6f95f7; }
+  .g-tracking { --tone:#4fc9dd; }
   * { box-sizing:border-box; }
-  html { scroll-behavior:smooth; scroll-padding-top:104px; }
+  html { scroll-behavior:smooth; scroll-padding-top:150px; }
   body {
     margin:0; background:var(--ink); color:var(--frost);
     font-family:"Oswald",system-ui,sans-serif; font-weight:400;
     font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased;
   }
-  a { color:var(--works); }
+  a { color:var(--tone); }
 
-  /* ---------- top bar ---------- */
   .bar {
     position:sticky; top:0; z-index:20;
     display:flex; align-items:center; gap:18px;
-    padding:14px 28px; background:rgba(7,9,12,.86);
+    padding:14px 28px; background:rgba(7,9,12,.9);
     backdrop-filter:blur(14px);
     border-bottom:1px solid var(--line);
   }
   .bar::after {
     content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px;
-    background:linear-gradient(90deg,var(--pink),var(--blue),var(--works));
-    opacity:.85;
+    background:linear-gradient(90deg,#f06bb8,#b57cf0,#6f95f7,#4fc9dd);
   }
   .bar img { width:40px; height:40px; flex:none; }
   .brand { display:flex; flex-direction:column; line-height:1.15; }
@@ -50,31 +52,12 @@
   }
   .bar nav a:hover { color:var(--frost); border-color:var(--frost-dim); }
 
-  /* ---------- hero ---------- */
   .wrap { max-width:1320px; margin:0 auto; padding:0 28px 96px; }
-  .hero { padding:64px 0 40px; border-bottom:1px solid var(--line); }
-  .hero h1 {
-    font-family:"Archivo Black",system-ui,sans-serif; font-weight:400;
-    font-size:clamp(38px,6vw,76px); line-height:1.02; letter-spacing:-.03em; margin:0 0 20px;
-  }
-  .hero p { max-width:68ch; color:var(--frost-dim); margin:0 0 14px; }
-  .hero strong { color:var(--frost); font-weight:500; }
-  .meta {
-    display:flex; flex-wrap:wrap; gap:10px 26px; margin-top:26px;
-    font-family:"JetBrains Mono",monospace; font-size:13px; color:var(--frost-dim);
-  }
-  .meta b { color:var(--frost); font-weight:400; }
 
-  .legend { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px; margin:34px 0 0; }
-  .legend div { border-top:2px solid var(--works); padding-top:12px; }
-  .legend dt { font-weight:700; letter-spacing:.1em; text-transform:uppercase; font-size:14px; }
-  .legend dd { margin:4px 0 0; color:var(--frost-dim); font-size:15px; }
-
-  /* ---------- filters ---------- */
   .filters {
     position:sticky; top:70px; z-index:10;
     display:flex; flex-wrap:wrap; gap:10px; align-items:center;
-    padding:18px 0; background:linear-gradient(var(--ink) 76%,rgba(7,9,12,0));
+    padding:20px 0 22px; background:linear-gradient(var(--ink) 74%,rgba(7,9,12,0));
   }
   .chip {
     font-family:inherit; font-size:14px; letter-spacing:.05em; text-transform:uppercase;
@@ -82,16 +65,14 @@
     border:1px solid var(--line); border-radius:999px; padding:8px 15px;
     display:inline-flex; align-items:center; gap:9px;
   }
-  .chip .n { font-family:"JetBrains Mono",monospace; font-size:12px; color:var(--works); }
-  .chip:hover { color:var(--frost); }
-  .chip[aria-pressed="true"] { color:var(--ink); background:var(--works); border-color:var(--works); }
-  .chip[aria-pressed="true"] .n { color:var(--ink); }
+  .chip .n { font-family:"JetBrains Mono",monospace; font-size:12px; color:var(--tone); }
+  .chip:hover { color:var(--frost); border-color:var(--tone); }
+  .chip[aria-pressed="true"] { color:var(--ink); background:var(--tone); border-color:var(--tone); }
+  .chip[aria-pressed="true"] .n { color:var(--ink); opacity:.72; }
 
-  /* ---------- card ---------- */
   .card {
-    border:1px solid var(--line); border-radius:var(--r);
-    background:var(--slate); margin:22px 0; overflow:hidden;
-    scroll-margin-top:120px;
+    border:1px solid var(--line); border-left:3px solid var(--tone); border-radius:var(--r);
+    background:var(--slate); margin:22px 0; overflow:hidden; scroll-margin-top:160px;
   }
   .card[hidden] { display:none; }
   .card-head {
@@ -105,16 +86,20 @@
   }
   .badge {
     font-size:12px; letter-spacing:.12em; text-transform:uppercase;
-    color:var(--works); border:1px solid rgba(95,227,177,.4);
-    background:rgba(95,227,177,.1); border-radius:999px; padding:4px 11px;
+    color:var(--tone); border:1px solid color-mix(in srgb, var(--tone) 42%, transparent);
+    background:color-mix(in srgb, var(--tone) 12%, transparent);
+    border-radius:999px; padding:4px 11px;
   }
   .specs { display:flex; flex-wrap:wrap; gap:8px 26px; margin:0; font-family:"JetBrains Mono",monospace; font-size:13px; }
   .specs dt { color:var(--frost-dim); font-size:11px; letter-spacing:.08em; text-transform:uppercase; }
   .specs dd { margin:2px 0 0; color:var(--frost); }
 
-  .card-body { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.05fr); gap:0; }
+  .card-body { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.05fr); }
   .media { padding:22px 24px; border-right:1px solid var(--line); }
-  video { width:100%; aspect-ratio:16/9; background:#000; border:1px solid var(--line); border-radius:10px; display:block; }
+  .still {
+    width:100%; aspect-ratio:16/9; object-fit:cover; display:block;
+    background:#000; border:1px solid var(--line); border-radius:10px;
+  }
 
   .dl { display:flex; flex-wrap:wrap; gap:9px; margin-top:16px; }
   .btn {
@@ -124,8 +109,8 @@
     border:1px solid var(--line); border-radius:9px; padding:9px 14px;
   }
   .btn span { font-family:"JetBrains Mono",monospace; font-size:11px; color:var(--frost-dim); }
-  .btn:hover { border-color:var(--works); color:var(--works); }
-  .btn:hover span { color:var(--works); }
+  .btn:hover { border-color:var(--tone); color:var(--tone); }
+  .btn:hover span { color:var(--tone); }
 
   .refs h3 {
     font-size:11px; letter-spacing:.14em; text-transform:uppercase;
@@ -138,33 +123,29 @@
     border:1px solid var(--line); border-radius:9px; background:var(--slate-2);
   }
   .ref span { display:block; margin-top:5px; font-family:"JetBrains Mono",monospace; }
-  .ref:hover img { border-color:var(--works); }
-  .ref:hover span { color:var(--works); }
+  .ref:hover img { border-color:var(--tone); }
+  .ref:hover span { color:var(--tone); }
 
   .prompt { display:flex; flex-direction:column; min-width:0; }
   .prompt-head {
     display:flex; align-items:center; justify-content:space-between; gap:14px;
     padding:16px 24px; border-bottom:1px solid var(--line);
   }
-  .prompt-head code { font-family:"JetBrains Mono",monospace; font-size:13px; color:var(--frost-dim); }
+  .prompt-label {
+    font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--frost-dim);
+  }
   .copy {
     font-family:inherit; font-size:13px; letter-spacing:.04em; cursor:pointer;
     color:var(--frost-dim); background:transparent;
     border:1px solid var(--line); border-radius:8px; padding:6px 12px;
   }
-  .copy:hover { color:var(--works); border-color:var(--works); }
+  .copy:hover { color:var(--tone); border-color:var(--tone); }
   .prompt-body {
-    margin:0; padding:20px 24px; max-height:540px; overflow:auto;
+    margin:0; padding:20px 24px; max-height:560px; overflow:auto;
     font-family:"JetBrains Mono",monospace; font-size:13.5px; line-height:1.72;
     white-space:pre-wrap; word-break:normal; overflow-wrap:break-word;
     color:var(--frost-dim);
   }
-  mark { background:rgba(95,227,177,.15); color:var(--frost); border-radius:3px; padding:2px 5px; }
-  mark.gear { box-shadow:inset 3px 0 0 var(--works); }
-  mark.clause { box-shadow:inset 3px 0 0 var(--works); }
-
-  footer { border-top:1px solid var(--line); padding:40px 0 0; margin-top:60px; color:var(--frost-dim); font-size:15px; }
-  footer a { color:var(--works); }
 
   @media (max-width:980px) {
     .card-body { grid-template-columns:1fr; }
@@ -182,38 +163,19 @@
   <div class="brand"><b>Loop Forge</b><span>MiniMax H3 camera shots</span></div>
   <nav>
     <a href="https://github.com/loopforge0/minimaxh3-shots-skills">Repository</a>
-    <a href="https://github.com/loopforge0/minimaxh3-shots-skills#readme">Skills</a>
     <a href="https://www.youtube.com/@LoopForge0">YouTube</a>
   </nav>
 </div>
 
 <div class="wrap">
-  <section class="hero">
-    <h1>Fourteen camera shots,<br>and the prompts behind them</h1>
-    <p>MiniMax H3 documents <strong>twelve camera motions</strong> and no named shots. A crash zoom, a
-       dolly zoom or a snorricam is something you compose out of those motions in a sentence. Every shot
-       below rides the same six section Ref2VA scaffold, and the marked sentence is what turns it into a
-       named shot.</p>
-    <p>Everything is here: the clip, the exact prompt that produced it byte for byte, the character
-       reference plates, and the ComfyUI workflow. Nothing has been tidied up for publication.</p>
-    <div class="meta">
-      <span>developed <b>864&times;480</b> on an <b>RTX 3060</b></span>
-      <span>finished <b>1344&times;768</b> on a rented <b>RTX 5090</b></span>
-      <span><b>20 steps</b>, turbo off</span>
-      <span>seed <b>552013742</b></span>
-      <span><b>14</b> clips, <b>25 MB</b></span>
-    </div>
-    <dl class="legend"><div><dt>zoom</dt><dd>the lens moves, not the camera</dd></div><div><dt>specialty</dt><dd>rig, focus and compound moves</dd></div><div><dt>pan and roll</dt><dd>the camera turns in place</dd></div><div><dt>tracking</dt><dd>the camera travels</dd></div></dl>
-  </section>
-
   <div class="filters">
     <button class="chip" data-filter="all" aria-pressed="true">all<span class="n">14</span></button>
-    <button class="chip" data-filter="zoom">zoom<span class="n">2</span></button><button class="chip" data-filter="specialty">specialty<span class="n">4</span></button><button class="chip" data-filter="pan and roll">pan and roll<span class="n">2</span></button><button class="chip" data-filter="tracking">tracking<span class="n">6</span></button>
+    <button class="chip g-zoom" data-filter="zoom">zoom<span class="n">2</span></button><button class="chip g-specialty" data-filter="specialty">specialty<span class="n">4</span></button><button class="chip g-pan-and-roll" data-filter="pan and roll">pan and roll<span class="n">2</span></button><button class="chip g-tracking" data-filter="tracking">tracking<span class="n">6</span></button>
   </div>
 
   <main>
 
-      <article class="card" id="crash-zoom-in" data-group="zoom">
+      <article class="card g-zoom" id="crash-zoom-in" data-group="zoom">
         <header class="card-head">
           <div class="card-title">
             <h2>Crash zoom in</h2>
@@ -223,18 +185,14 @@
             <div><dt>frames</dt><dd>124</dd></div>
             <div><dt>length</dt><dd>5.17s</dd></div>
             <div><dt>size</dt><dd>1344&times;768</dd></div>
-            <div><dt>clause</dt><dd>105 of 457 words</dd></div>
           </dl>
         </header>
 
         <div class="card-body">
           <div class="media">
-            <video controls preload="none" playsinline
-                   poster="assets/posters/C-01b.jpg"
-                   src="assets/clips/C-01b.mp4"></video>
+            <img class="still" src="assets/stills/C-01b.jpg"
+                 alt="Frame from the crash zoom in shot" loading="lazy">
             <div class="dl">
-              <a class="btn" href="assets/clips/C-01b.mp4" download>Clip <span>mp4, 1.1 MB</span></a>
-              <a class="btn" href="prompts/C-01b_crash-zoom-in-hold-then-snap.txt" download>Prompt <span>txt</span></a>
               <a class="btn" href="assets/workflow/h3_dollyzoom_test_v6flip.json" download>Workflow <span>ComfyUI json</span></a>
             </div>
             <div class="refs">
@@ -245,10 +203,10 @@
 
           <div class="prompt">
             <div class="prompt-head">
-              <code>C-01b_crash-zoom-in-hold-then-snap.txt</code>
-              <button class="copy" data-target="p-C-01b">Copy prompt</button>
+              <span class="prompt-label">Prompt</span>
+              <button class="copy" data-target="p-C-01b">Copy</button>
             </div>
-            <pre id="p-C-01b" class="prompt-body"><span>subject_definitions:
+            <pre id="p-C-01b" class="prompt-body">subject_definitions:
 &lt;Subject 1&gt; is the young woman in &lt;Picture 1&gt;: long wavy ginger-red hair, fair skin with light freckles, wearing a cream short-sleeve t-shirt, a dark cord necklace with a metal cross pendant, high-waisted blue jeans with a brown leather belt and a small brown pouch, and woven cord wrist wraps on both wrists. Her exact facial structure, features and proportions stay identical to &lt;Picture 1&gt; in every frame.
 
 summary:
@@ -258,18 +216,18 @@ retention_analysis:
 &lt;Subject 1&gt; (appears in [Shot 1]): fully_preserved - her face, identity and clothing are held identical to &lt;Picture 1&gt; in every frame with zero drift.
 
 detailed_description:
-The target video is live-action and cinematic, </span><mark class="gear">shot on an ARRI Alexa with a Cooke Varotal 18-100mm zoom lens, locked off on a tripod</mark><span>, cold blue-green arctic lighting with the aurora glowing softly overhead, a slightly desaturated palette.
-[Shot 1] The shot opens wide, with &lt;Subject 1&gt; standing small and full-figure on the snowy rocky shore, with dark rocky cliffs, patches of green aurora borealis in the sky, still water, and an old wooden sailing ship with tall masts anchored behind her. </span><mark class="clause">The camera is locked off and completely motionless, and the framing does not change at all for the first two seconds. At the two-second mark the camera performs a Zoom In with large amplitude at fast speed: a single violent crash zoom that travels the whole distance from the wide shot to a tight close-up of &lt;Subject 1&gt;'s face in about 200 milliseconds, in one continuous snap, with no easing at either end and nothing gradual about it. The instant the zoom lands the camera is locked off again in the tight close-up and the framing does not change for the remainder of the shot.</mark><span> &lt;Subject 1&gt; stands completely still with a blank, neutral expression for the whole of the opening wide shot. Her reaction begins only after the zoom has landed: her eyes widen and focus, her brow lifts and tightens, her lips part slightly, and she settles into a held, wide-eyed stillness for the rest of the shot.
+The target video is live-action and cinematic, shot on an ARRI Alexa with a Cooke Varotal 18-100mm zoom lens, locked off on a tripod, cold blue-green arctic lighting with the aurora glowing softly overhead, a slightly desaturated palette.
+[Shot 1] The shot opens wide, with &lt;Subject 1&gt; standing small and full-figure on the snowy rocky shore, with dark rocky cliffs, patches of green aurora borealis in the sky, still water, and an old wooden sailing ship with tall masts anchored behind her. The camera is locked off and completely motionless, and the framing does not change at all for the first two seconds. At the two-second mark the camera performs a Zoom In with large amplitude at fast speed: a single violent crash zoom that travels the whole distance from the wide shot to a tight close-up of &lt;Subject 1&gt;'s face in about 200 milliseconds, in one continuous snap, with no easing at either end and nothing gradual about it. The instant the zoom lands the camera is locked off again in the tight close-up and the framing does not change for the remainder of the shot. &lt;Subject 1&gt; stands completely still with a blank, neutral expression for the whole of the opening wide shot. Her reaction begins only after the zoom has landed: her eyes widen and focus, her brow lifts and tightens, her lips part slightly, and she settles into a held, wide-eyed stillness for the rest of the shot.
 
 overall_soundscape: A faint cold wind and distant creaking from the ship's rigging hold steady and completely unchanged through the opening two seconds. At the two-second mark a single hard impact lands in one frame as the zoom arrives, and the ambience cuts instantly from open and distant to tight, close and intimate, holding there to the end. Nothing builds gradually at any point.
 
 non_diegetic_music: Silence through the opening. One sharp percussive stab on the single frame the zoom lands, then silence again.
-</span></pre>
+</pre>
           </div>
         </div>
       </article>
 
-      <article class="card" id="yoyo-zoom" data-group="zoom">
+      <article class="card g-zoom" id="yoyo-zoom" data-group="zoom">
         <header class="card-head">
           <div class="card-title">
             <h2>Yo-yo zoom</h2>
@@ -279,18 +237,14 @@ non_diegetic_music: Silence through the opening. One sharp percussive stab on th
             <div><dt>frames</dt><dd>192</dd></div>
             <div><dt>length</dt><dd>8.00s</dd></div>
             <div><dt>size</dt><dd>1344&times;768</dd></div>
-            <div><dt>clause</dt><dd>85 of 367 words</dd></div>
           </dl>
         </header>
 
         <div class="card-body">
           <div class="media">
-            <video controls preload="none" playsinline
-                   poster="assets/posters/C-08.jpg"
-                   src="assets/clips/C-08.mp4"></video>
+            <img class="still" src="assets/stills/C-08.jpg"
+                 alt="Frame from the yo-yo zoom shot" loading="lazy">
             <div class="dl">
-              <a class="btn" href="assets/clips/C-08.mp4" download>Clip <span>mp4, 2.8 MB</span></a>
-              <a class="btn" href="prompts/C-08_yoyo-zoom.txt" download>Prompt <span>txt</span></a>
               <a class="btn" href="assets/workflow/h3_dollyzoom_test_v6flip.json" download>Workflow <span>ComfyUI json</span></a>
             </div>
             <div class="refs">
@@ -301,10 +255,10 @@ non_diegetic_music: Silence through the opening. One sharp percussive stab on th
 
           <div class="prompt">
             <div class="prompt-head">
-              <code>C-08_yoyo-zoom.txt</code>
-              <button class="copy" data-target="p-C-08">Copy prompt</button>
+              <span class="prompt-label">Prompt</span>
+              <button class="copy" data-target="p-C-08">Copy</button>
             </div>
-            <pre id="p-C-08" class="prompt-body"><span>subject_definitions:
+            <pre id="p-C-08" class="prompt-body">subject_definitions:
 &lt;Subject 1&gt; is the young woman in &lt;Picture 1&gt;: long dark brown wavy hair, warm olive skin and a bright open smile, wearing a white lace-trimmed cropped camisole and high-waisted beige trousers. Her exact facial structure, features and proportions stay identical to &lt;Picture 1&gt; in every frame.
 
 summary:
@@ -314,18 +268,18 @@ retention_analysis:
 &lt;Subject 1&gt; (appears in [Shot 1]): fully_preserved - her face, identity and clothing are held identical to &lt;Picture 1&gt; in every frame with zero drift.
 
 detailed_description:
-The target video is live-action and cinematic, </span><mark class="gear">shot on an ARRI Alexa with a Cooke Varotal 18-100mm zoom lens, locked off on a tripod</mark><span>, warm golden-hour sunlight with strong lens flare, a rich saturated palette.
-[Shot 1] A tight close-up fills the frame with &lt;Subject 1&gt;'s face. She is standing in place on the warm rooftop deck, breathing softly, hair and clothing stirring in the air, blinking and shifting her weight a little as people naturally do, with low sun flaring between distant towers, potted plants and strings of lights behind her. </span><mark class="clause">The camera begins in a tight close-up on &lt;Subject 1&gt;'s face, then zooms out, starting slowly and accelerating harder and harder as it goes until the whole view smears into motion blur and she has fallen away into the far distance, a tiny figure on the rooftop. The camera holds there for about a second, then zooms back in with large amplitude at fast speed, snapping across the entire distance in a single instant to land tight on her face again exactly as it began.</mark><span> &lt;Subject 1&gt; holds her ground throughout, breathing, blinking and letting her hair move in the rooftop breeze, her expression shifting from an easy smile into startled bewilderment as the world tears away from her and slams back.
+The target video is live-action and cinematic, shot on an ARRI Alexa with a Cooke Varotal 18-100mm zoom lens, locked off on a tripod, warm golden-hour sunlight with strong lens flare, a rich saturated palette.
+[Shot 1] A tight close-up fills the frame with &lt;Subject 1&gt;'s face. She is standing in place on the warm rooftop deck, breathing softly, hair and clothing stirring in the air, blinking and shifting her weight a little as people naturally do, with low sun flaring between distant towers, potted plants and strings of lights behind her. The camera begins in a tight close-up on &lt;Subject 1&gt;'s face, then zooms out, starting slowly and accelerating harder and harder as it goes until the whole view smears into motion blur and she has fallen away into the far distance, a tiny figure on the rooftop. The camera holds there for about a second, then zooms back in with large amplitude at fast speed, snapping across the entire distance in a single instant to land tight on her face again exactly as it began. &lt;Subject 1&gt; holds her ground throughout, breathing, blinking and letting her hair move in the rooftop breeze, her expression shifting from an easy smile into startled bewilderment as the world tears away from her and slams back.
 
 overall_soundscape: Rooftop ambience close and intimate, stretching thin and far away as she recedes, then slamming close and present again in a single instant.
 
 non_diegetic_music: A tone that bends downward and stretches as everything races away from her, then snaps back up to pitch in one beat.
-</span></pre>
+</pre>
           </div>
         </div>
       </article>
 
-      <article class="card" id="dolly-zoom" data-group="specialty">
+      <article class="card g-specialty" id="dolly-zoom" data-group="specialty">
         <header class="card-head">
           <div class="card-title">
             <h2>Dolly zoom</h2>
@@ -335,18 +289,14 @@ non_diegetic_music: A tone that bends downward and stretches as everything races
             <div><dt>frames</dt><dd>124</dd></div>
             <div><dt>length</dt><dd>5.17s</dd></div>
             <div><dt>size</dt><dd>1344&times;768</dd></div>
-            <div><dt>clause</dt><dd>56 of 408 words</dd></div>
           </dl>
         </header>
 
         <div class="card-body">
           <div class="media">
-            <video controls preload="none" playsinline
-                   poster="assets/posters/K-06n.jpg"
-                   src="assets/clips/K-06n.mp4"></video>
+            <img class="still" src="assets/stills/K-06n.jpg"
+                 alt="Frame from the dolly zoom shot" loading="lazy">
             <div class="dl">
-              <a class="btn" href="assets/clips/K-06n.mp4" download>Clip <span>mp4, 0.9 MB</span></a>
-              <a class="btn" href="prompts/K-06n_dolly-zoom-k06.txt" download>Prompt <span>txt</span></a>
               <a class="btn" href="assets/workflow/h3_dollyzoom_test_v6flip.json" download>Workflow <span>ComfyUI json</span></a>
             </div>
             <div class="refs">
@@ -357,10 +307,10 @@ non_diegetic_music: A tone that bends downward and stretches as everything races
 
           <div class="prompt">
             <div class="prompt-head">
-              <code>K-06n_dolly-zoom-k06.txt</code>
-              <button class="copy" data-target="p-K-06n">Copy prompt</button>
+              <span class="prompt-label">Prompt</span>
+              <button class="copy" data-target="p-K-06n">Copy</button>
             </div>
-            <pre id="p-K-06n" class="prompt-body"><span>subject_definitions:
+            <pre id="p-K-06n" class="prompt-body">subject_definitions:
 &lt;Subject 1&gt; is the young woman in &lt;Picture 1&gt;: long wavy ginger-red hair, fair skin with light freckles, wearing a cream short-sleeve t-shirt, a dark cord necklace with a metal cross pendant, high-waisted blue jeans with a brown leather belt and a small brown pouch, and woven cord wrist wraps on both wrists. Her exact facial structure, features and proportions stay identical to &lt;Picture 1&gt; in every frame.
 
 summary:
@@ -370,18 +320,18 @@ retention_analysis:
 &lt;Subject 1&gt; (appears in [Shot 1]): fully_preserved - her face, identity and clothing are held identical to &lt;Picture 1&gt; in every frame with zero drift.
 
 detailed_description:
-The target video is live-action and cinematic, </span><mark class="gear">shot on an ARRI Alexa with a Cooke S4 lens at 50mm</mark><span>, warm amber stage lighting with a hard spotlight from above and deep shadow beyond it, rich saturated reds.
-[Shot 1] A waist-up medium close-up frames &lt;Subject 1&gt; standing completely still centre stage, lit by the overhead spotlight, with the microphone stand just in front of her and the red curtains, drum kit and keyboards behind her. </span><mark class="clause">The camera pushes in while simultaneously zooming out on the Cooke S4 lens, so that &lt;Subject 1&gt;'s size and position in frame stay exactly constant throughout, while the red curtains, the drum kit, the keyboards and the microphone stand behind her recede, shrink, and spread apart into much greater depth as the lens's focal length changes.</mark><span> As the shot plays out, &lt;Subject 1&gt;'s expression shifts from blank and neutral into dawning realization and slight shock: her eyes widen and focus more intensely, her brow lifts and tightens, her lips part slightly, and her breathing grows visibly shallower and faster, the change building through the middle of the shot and settling into a held, wide-eyed stillness by the end.
+The target video is live-action and cinematic, shot on an ARRI Alexa with a Cooke S4 lens at 50mm, warm amber stage lighting with a hard spotlight from above and deep shadow beyond it, rich saturated reds.
+[Shot 1] A waist-up medium close-up frames &lt;Subject 1&gt; standing completely still centre stage, lit by the overhead spotlight, with the microphone stand just in front of her and the red curtains, drum kit and keyboards behind her. The camera pushes in while simultaneously zooming out on the Cooke S4 lens, so that &lt;Subject 1&gt;'s size and position in frame stay exactly constant throughout, while the red curtains, the drum kit, the keyboards and the microphone stand behind her recede, shrink, and spread apart into much greater depth as the lens's focal length changes. As the shot plays out, &lt;Subject 1&gt;'s expression shifts from blank and neutral into dawning realization and slight shock: her eyes widen and focus more intensely, her brow lifts and tightens, her lips part slightly, and her breathing grows visibly shallower and faster, the change building through the middle of the shot and settling into a held, wide-eyed stillness by the end.
 
 overall_soundscape: The quiet room tone of a large empty auditorium continues throughout, with faint distant creaks and &lt;Subject 1&gt;'s breathing growing faster and shallower as the shot progresses.
 
 non_diegetic_music: A single sustained low string note swells partway through the shot, then fades toward the end.
-</span></pre>
+</pre>
           </div>
         </div>
       </article>
 
-      <article class="card" id="snorricam" data-group="specialty">
+      <article class="card g-specialty" id="snorricam" data-group="specialty">
         <header class="card-head">
           <div class="card-title">
             <h2>Snorricam</h2>
@@ -391,18 +341,14 @@ non_diegetic_music: A single sustained low string note swells partway through th
             <div><dt>frames</dt><dd>192</dd></div>
             <div><dt>length</dt><dd>8.00s</dd></div>
             <div><dt>size</dt><dd>864&times;480</dd></div>
-            <div><dt>clause</dt><dd>135 of 686 words</dd></div>
           </dl>
         </header>
 
         <div class="card-body">
           <div class="media">
-            <video controls preload="none" playsinline
-                   poster="assets/posters/D-05.jpg"
-                   src="assets/clips/D-05.mp4"></video>
+            <img class="still" src="assets/stills/D-05.jpg"
+                 alt="Frame from the snorricam shot" loading="lazy">
             <div class="dl">
-              <a class="btn" href="assets/clips/D-05.mp4" download>Clip <span>mp4, 1.7 MB</span></a>
-              <a class="btn" href="prompts/D-05_snorricam-corridor.txt" download>Prompt <span>txt</span></a>
               <a class="btn" href="assets/workflow/h3_dollyzoom_test_v6flip.json" download>Workflow <span>ComfyUI json</span></a>
             </div>
             <div class="refs">
@@ -413,10 +359,10 @@ non_diegetic_music: A single sustained low string note swells partway through th
 
           <div class="prompt">
             <div class="prompt-head">
-              <code>D-05_snorricam-corridor.txt</code>
-              <button class="copy" data-target="p-D-05">Copy prompt</button>
+              <span class="prompt-label">Prompt</span>
+              <button class="copy" data-target="p-D-05">Copy</button>
             </div>
-            <pre id="p-D-05" class="prompt-body"><span>subject_definitions:
+            <pre id="p-D-05" class="prompt-body">subject_definitions:
 &lt;Subject 1&gt; is the young woman in &lt;Picture 1&gt;: long light brown wavy hair, fair freckled skin, round gold-rimmed glasses, wearing a simple white slip dress with thin straps. Her exact facial structure, features and proportions stay identical to &lt;Picture 1&gt; in every frame.
 
 summary:
@@ -426,17 +372,17 @@ retention_analysis:
 &lt;Subject 1&gt; (appears in [Shot 1]): fully_preserved - her face, identity and clothing are held identical to &lt;Picture 1&gt; in every frame with zero drift.
 
 detailed_description:
-The target video is live-action and cinematic, </span><mark class="gear">shot on an ARRI Alexa Mini with a 14mm wide prime, the camera fixed rigidly to her torso so it moves exactly with her body</mark><span>, harsh mixed party lighting with warm tungsten sconces and coloured LED wash spilling from open doorways sweeping hard across her face as she passes each one, a rich saturated palette with deep shadow.
-[Shot 1] A head-and-shoulders close-up of &lt;Subject 1&gt;, framed from just below her eyeline a short distance in front of her and angled gently upward at her face, shows her whole head and both bare shoulders with a clear margin of open space above her hair, so that the top of her head never reaches the top of the frame, as she is running hard down a narrow, packed indoor corridor at a house party and banking round its corners into the rooms off it, her hair flying and the thin straps of her dress shifting with every stride, with people crushed shoulder to shoulder along both walls with drinks, shouting over the music, open doorways spilling coloured light ahead of her, a low ceiling strung with warm bulbs close overhead, and each room she banks into more congested than the last. &lt;Subject 1&gt; runs hard down the corridor and banks hard round each corner and through each doorway into the next crowded room, carried forward at the same speed from the first frame to the last, never breaking stride. </span><mark class="clause">Her shoulders and chest stay frozen in the frame throughout: they hold exactly the same place at exactly the same size in every single frame, never drifting a pixel, and her head is the only part of her that moves inside that frozen frame. Everything else is thrown onto the world. Tracking with her at fast speed and shaking strongly with large amplitude, the whole party - the ceiling lights, the door frames, the packed bodies pressed in on both sides - heaves and drops in exact time with her stride, and each time she banks into a turn the entire room whips sideways across the frame in one fast pan, the walls and the crowd sweeping past the lens fast enough to smear into streaks before the next room opens up ahead of her.</mark><span> &lt;Subject 1&gt; is already wide-eyed and frightened in the very first frame, her brows pulled up and together and her eyes stretched wide, and the fear only tightens as she runs: her stare fixes harder, her brows draw in further, and her breathing grows faster and more ragged through her nose. Her lips stay pressed together the whole way, the breath forced out through her nose. Her head rocks with the impact of every stride while her shoulders stay locked in place, and both arms swing freely and loosely at her sides in rhythm with her run, her hands open and relaxed.
+The target video is live-action and cinematic, shot on an ARRI Alexa Mini with a 14mm wide prime, the camera fixed rigidly to her torso so it moves exactly with her body, harsh mixed party lighting with warm tungsten sconces and coloured LED wash spilling from open doorways sweeping hard across her face as she passes each one, a rich saturated palette with deep shadow.
+[Shot 1] A head-and-shoulders close-up of &lt;Subject 1&gt;, framed from just below her eyeline a short distance in front of her and angled gently upward at her face, shows her whole head and both bare shoulders with a clear margin of open space above her hair, so that the top of her head never reaches the top of the frame, as she is running hard down a narrow, packed indoor corridor at a house party and banking round its corners into the rooms off it, her hair flying and the thin straps of her dress shifting with every stride, with people crushed shoulder to shoulder along both walls with drinks, shouting over the music, open doorways spilling coloured light ahead of her, a low ceiling strung with warm bulbs close overhead, and each room she banks into more congested than the last. &lt;Subject 1&gt; runs hard down the corridor and banks hard round each corner and through each doorway into the next crowded room, carried forward at the same speed from the first frame to the last, never breaking stride. Her shoulders and chest stay frozen in the frame throughout: they hold exactly the same place at exactly the same size in every single frame, never drifting a pixel, and her head is the only part of her that moves inside that frozen frame. Everything else is thrown onto the world. Tracking with her at fast speed and shaking strongly with large amplitude, the whole party - the ceiling lights, the door frames, the packed bodies pressed in on both sides - heaves and drops in exact time with her stride, and each time she banks into a turn the entire room whips sideways across the frame in one fast pan, the walls and the crowd sweeping past the lens fast enough to smear into streaks before the next room opens up ahead of her. &lt;Subject 1&gt; is already wide-eyed and frightened in the very first frame, her brows pulled up and together and her eyes stretched wide, and the fear only tightens as she runs: her stare fixes harder, her brows draw in further, and her breathing grows faster and more ragged through her nose. Her lips stay pressed together the whole way, the breath forced out through her nose. Her head rocks with the impact of every stride while her shoulders stay locked in place, and both arms swing freely and loosely at her sides in rhythm with her run, her hands open and relaxed.
 
 overall_soundscape: Her footfalls and breathing stay close, loud and constant, right up against the microphone, her breath tightening into a fast ragged hiss through her nose as the shot goes on, while the party swings and lurches around her with every stride, the music and shouting swelling hard as she banks into each new room and sweeping away behind her.
 
-non_diegetic_music: A relentless two-note pulse locked exactly to her stride, one hit per footfall, never speeding up or slowing down, with a high thin dissonance creeping in above it and tightening as the shot goes on.</span></pre>
+non_diegetic_music: A relentless two-note pulse locked exactly to her stride, one hit per footfall, never speeding up or slowing down, with a high thin dissonance creeping in above it and tightening as the shot goes on.</pre>
           </div>
         </div>
       </article>
 
-      <article class="card" id="rack-focus" data-group="specialty">
+      <article class="card g-specialty" id="rack-focus" data-group="specialty">
         <header class="card-head">
           <div class="card-title">
             <h2>Rack focus</h2>
@@ -446,18 +392,14 @@ non_diegetic_music: A relentless two-note pulse locked exactly to her stride, on
             <div><dt>frames</dt><dd>124</dd></div>
             <div><dt>length</dt><dd>5.17s</dd></div>
             <div><dt>size</dt><dd>1344&times;768</dd></div>
-            <div><dt>clause</dt><dd>63 of 522 words</dd></div>
           </dl>
         </header>
 
         <div class="card-body">
           <div class="media">
-            <video controls preload="none" playsinline
-                   poster="assets/posters/D-03.jpg"
-                   src="assets/clips/D-03.mp4"></video>
+            <img class="still" src="assets/stills/D-03.jpg"
+                 alt="Frame from the rack focus shot" loading="lazy">
             <div class="dl">
-              <a class="btn" href="assets/clips/D-03.mp4" download>Clip <span>mp4, 0.9 MB</span></a>
-              <a class="btn" href="prompts/D-03_rack-focus.txt" download>Prompt <span>txt</span></a>
               <a class="btn" href="assets/workflow/h3_dollyzoom_test_v6flip.json" download>Workflow <span>ComfyUI json</span></a>
             </div>
             <div class="refs">
@@ -468,10 +410,10 @@ non_diegetic_music: A relentless two-note pulse locked exactly to her stride, on
 
           <div class="prompt">
             <div class="prompt-head">
-              <code>D-03_rack-focus.txt</code>
-              <button class="copy" data-target="p-D-03">Copy prompt</button>
+              <span class="prompt-label">Prompt</span>
+              <button class="copy" data-target="p-D-03">Copy</button>
             </div>
-            <pre id="p-D-03" class="prompt-body"><span>subject_definitions:
+            <pre id="p-D-03" class="prompt-body">subject_definitions:
 &lt;Subject 1&gt; is the young woman in &lt;Picture 1&gt;: long dark brown wavy hair, warm olive skin and a bright open smile, wearing a white lace-trimmed cropped camisole and high-waisted beige trousers. Her exact facial structure, features and proportions stay identical to &lt;Picture 1&gt; in every frame.
 &lt;Subject 2&gt; is the second young woman in &lt;Picture 2&gt;: long light brown wavy hair, fair freckled skin, round gold-rimmed glasses, wearing a simple white slip dress with thin straps. Her exact facial structure, features and proportions stay identical to &lt;Picture 2&gt; in every frame.
 &lt;Subject 3&gt; is the third young woman in &lt;Picture 3&gt;: long wavy ginger-red hair, fair skin with light freckles, wearing a cream short-sleeve t-shirt, a dark cord necklace with a metal cross pendant, high-waisted blue jeans with a brown leather belt and a small brown pouch, and woven cord wrist wraps on both wrists. Her exact facial structure, features and proportions stay identical to &lt;Picture 3&gt; in every frame.
@@ -485,18 +427,18 @@ retention_analysis:
 &lt;Subject 3&gt; (appears in [Shot 1]): fully_preserved - her face, identity and clothing are held identical to &lt;Picture 3&gt; in every frame with zero drift.
 
 detailed_description:
-The target video is live-action and cinematic, </span><mark class="gear">shot on an ARRI Alexa with a Cooke S4 75mm prime wide open, locked off, focus pulled with a follow focus</mark><span>, warm golden-hour sunlight with strong lens flare, a rich saturated palette.
-[Shot 1] A medium-wide shot holds two distinct depth planes at once: &lt;Subject 1&gt; close to camera and the rooftop opening out well behind her. She is standing in place on the warm rooftop deck, breathing softly, hair and clothing stirring in the air, blinking and shifting her weight a little as people naturally do, with low sun flaring between distant towers, potted plants and strings of lights behind her. </span><mark class="clause">The camera holds a static shot. &lt;Subject 1&gt; stands close to camera in sharp focus while &lt;Subject 2&gt; and &lt;Subject 3&gt; stand talking together far behind her, soft and unfocused. &lt;Subject 1&gt; slowly turns her head to look back at them, and the focus racks from her face to the two women - she falls into soft blur exactly as they resolve sharply.</mark><span> &lt;Subject 1&gt;'s idle curiosity sharpens into recognition as she turns, while &lt;Subject 2&gt; and &lt;Subject 3&gt; stay absorbed in their own conversation, laughing quietly together.
+The target video is live-action and cinematic, shot on an ARRI Alexa with a Cooke S4 75mm prime wide open, locked off, focus pulled with a follow focus, warm golden-hour sunlight with strong lens flare, a rich saturated palette.
+[Shot 1] A medium-wide shot holds two distinct depth planes at once: &lt;Subject 1&gt; close to camera and the rooftop opening out well behind her. She is standing in place on the warm rooftop deck, breathing softly, hair and clothing stirring in the air, blinking and shifting her weight a little as people naturally do, with low sun flaring between distant towers, potted plants and strings of lights behind her. The camera holds a static shot. &lt;Subject 1&gt; stands close to camera in sharp focus while &lt;Subject 2&gt; and &lt;Subject 3&gt; stand talking together far behind her, soft and unfocused. &lt;Subject 1&gt; slowly turns her head to look back at them, and the focus racks from her face to the two women - she falls into soft blur exactly as they resolve sharply. &lt;Subject 1&gt;'s idle curiosity sharpens into recognition as she turns, while &lt;Subject 2&gt; and &lt;Subject 3&gt; stay absorbed in their own conversation, laughing quietly together.
 
 overall_soundscape: The two women's quiet conversation and laughter sits distant and indistinct behind the rooftop ambience, then lifts forward and becomes clearly audible as the focus reaches them.
 
 non_diegetic_music: A faint sustained pad that shifts harmony once, at the moment the focus changes.
-</span></pre>
+</pre>
           </div>
         </div>
       </article>
 
-      <article class="card" id="split-screen" data-group="specialty">
+      <article class="card g-specialty" id="split-screen" data-group="specialty">
         <header class="card-head">
           <div class="card-title">
             <h2>Split screen</h2>
@@ -506,18 +448,14 @@ non_diegetic_music: A faint sustained pad that shifts harmony once, at the momen
             <div><dt>frames</dt><dd>192</dd></div>
             <div><dt>length</dt><dd>8.00s</dd></div>
             <div><dt>size</dt><dd>1344&times;768</dd></div>
-            <div><dt>clause</dt><dd>214 of 438 words</dd></div>
           </dl>
         </header>
 
         <div class="card-body">
           <div class="media">
-            <video controls preload="none" playsinline
-                   poster="assets/posters/D-04.jpg"
-                   src="assets/clips/D-04.mp4"></video>
+            <img class="still" src="assets/stills/D-04.jpg"
+                 alt="Frame from the split screen shot" loading="lazy">
             <div class="dl">
-              <a class="btn" href="assets/clips/D-04.mp4" download>Clip <span>mp4, 0.7 MB</span></a>
-              <a class="btn" href="prompts/D-04_multi-panel-split-screen.txt" download>Prompt <span>txt</span></a>
               <a class="btn" href="assets/workflow/h3_dollyzoom_test_v6flip.json" download>Workflow <span>ComfyUI json</span></a>
             </div>
             <div class="refs">
@@ -528,10 +466,10 @@ non_diegetic_music: A faint sustained pad that shifts harmony once, at the momen
 
           <div class="prompt">
             <div class="prompt-head">
-              <code>D-04_multi-panel-split-screen.txt</code>
-              <button class="copy" data-target="p-D-04">Copy prompt</button>
+              <span class="prompt-label">Prompt</span>
+              <button class="copy" data-target="p-D-04">Copy</button>
             </div>
-            <pre id="p-D-04" class="prompt-body"><span>subject_definitions:
+            <pre id="p-D-04" class="prompt-body">subject_definitions:
 &lt;Subject 1&gt; is the young woman in &lt;Picture 1&gt;: long wavy ginger-red hair, fair skin with light freckles, wearing a cream short-sleeve t-shirt, a dark cord necklace with a metal cross pendant, high-waisted blue jeans with a brown leather belt and a small brown pouch, and woven cord wrist wraps on both wrists. Her exact facial structure, features and proportions stay identical to &lt;Picture 1&gt; in every frame.
 
 summary:
@@ -541,18 +479,18 @@ retention_analysis:
 &lt;Subject 1&gt; (appears in [Shot 1]): fully_preserved - her face, identity and clothing are held identical to &lt;Picture 1&gt; in every frame with zero drift.
 
 detailed_description:
-The target video is live-action and cinematic, </span><mark class="gear">shot on an ARRI Alexa Mini with a 35mm prime, locked off</mark><span>, cool monitor light on her face against a warm dim room, a muted contemporary palette.
-[Shot 1] </span><mark class="clause">The frame is divided into three equal vertical panels side by side, separated by thin black gutters. The left panel holds &lt;Subject 1&gt;, seated at a cluttered desk typing on a keyboard, a bright monitor in front of her, a mug and scattered papers beside it, a dark room and a rain-streaked window behind her. Every panel is locked off and completely static; nothing pans, zooms or moves at any point. The three panels open one after another at even intervals, two full seconds apart. The left panel plays from the very first frame, showing her from her left side in profile as she types, while the centre and right panels are solid black. The centre panel stays black for two whole seconds and comes on two seconds into the shot, showing the same moment from the front, framed over the back of the monitor with the screen glow on her face. The right panel stays solid black for two whole seconds longer than the centre one and comes on four seconds into the shot, showing her from behind in full, her back and the bright monitor in view. For the last four seconds all three panels play together in perfect sync, the same continuous typing at the same instant from three different angles.</mark><span> &lt;Subject 1&gt; types steadily and continuously throughout, her hands staying on the keyboard, pausing once to read the screen before carrying on.
+The target video is live-action and cinematic, shot on an ARRI Alexa Mini with a 35mm prime, locked off, cool monitor light on her face against a warm dim room, a muted contemporary palette.
+[Shot 1] The frame is divided into three equal vertical panels side by side, separated by thin black gutters. The left panel holds &lt;Subject 1&gt;, seated at a cluttered desk typing on a keyboard, a bright monitor in front of her, a mug and scattered papers beside it, a dark room and a rain-streaked window behind her. Every panel is locked off and completely static; nothing pans, zooms or moves at any point. The three panels open one after another at even intervals, two full seconds apart. The left panel plays from the very first frame, showing her from her left side in profile as she types, while the centre and right panels are solid black. The centre panel stays black for two whole seconds and comes on two seconds into the shot, showing the same moment from the front, framed over the back of the monitor with the screen glow on her face. The right panel stays solid black for two whole seconds longer than the centre one and comes on four seconds into the shot, showing her from behind in full, her back and the bright monitor in view. For the last four seconds all three panels play together in perfect sync, the same continuous typing at the same instant from three different angles. &lt;Subject 1&gt; types steadily and continuously throughout, her hands staying on the keyboard, pausing once to read the screen before carrying on.
 
 overall_soundscape: Steady keyboard clatter, close and continuous, over the low hum of a quiet room, with a chair creaking once.
 
 non_diegetic_music: A tight rhythmic pulse locked to the typing, a new layer entering each time another panel opens.
-</span></pre>
+</pre>
           </div>
         </div>
       </article>
 
-      <article class="card" id="whip-pan" data-group="pan and roll">
+      <article class="card g-pan-and-roll" id="whip-pan" data-group="pan and roll">
         <header class="card-head">
           <div class="card-title">
             <h2>Whip pan</h2>
@@ -562,18 +500,14 @@ non_diegetic_music: A tight rhythmic pulse locked to the typing, a new layer ent
             <div><dt>frames</dt><dd>124</dd></div>
             <div><dt>length</dt><dd>5.17s</dd></div>
             <div><dt>size</dt><dd>1344&times;768</dd></div>
-            <div><dt>clause</dt><dd>52 of 409 words</dd></div>
           </dl>
         </header>
 
         <div class="card-body">
           <div class="media">
-            <video controls preload="none" playsinline
-                   poster="assets/posters/C-02.jpg"
-                   src="assets/clips/C-02.mp4"></video>
+            <img class="still" src="assets/stills/C-02.jpg"
+                 alt="Frame from the whip pan shot" loading="lazy">
             <div class="dl">
-              <a class="btn" href="assets/clips/C-02.mp4" download>Clip <span>mp4, 1.4 MB</span></a>
-              <a class="btn" href="prompts/C-02_whip-pan.txt" download>Prompt <span>txt</span></a>
               <a class="btn" href="assets/workflow/h3_dollyzoom_test_v6flip.json" download>Workflow <span>ComfyUI json</span></a>
             </div>
             <div class="refs">
@@ -584,10 +518,10 @@ non_diegetic_music: A tight rhythmic pulse locked to the typing, a new layer ent
 
           <div class="prompt">
             <div class="prompt-head">
-              <code>C-02_whip-pan.txt</code>
-              <button class="copy" data-target="p-C-02">Copy prompt</button>
+              <span class="prompt-label">Prompt</span>
+              <button class="copy" data-target="p-C-02">Copy</button>
             </div>
-            <pre id="p-C-02" class="prompt-body"><span>subject_definitions:
+            <pre id="p-C-02" class="prompt-body">subject_definitions:
 &lt;Subject 1&gt; is the young woman in &lt;Picture 1&gt;: long wavy ginger-red hair, fair skin with light freckles, wearing a cream short-sleeve t-shirt, a dark cord necklace with a metal cross pendant, high-waisted blue jeans with a brown leather belt and a small brown pouch, and woven cord wrist wraps on both wrists. Her exact facial structure, features and proportions stay identical to &lt;Picture 1&gt; in every frame.
 &lt;Subject 2&gt; is the second young woman in &lt;Picture 2&gt;: shoulder-length dark brown wavy hair, fair skin and blue-grey eyes, wearing a chunky oatmeal cable-knit wool sweater. Her exact facial structure, features and proportions stay identical to &lt;Picture 2&gt; in every frame.
 
@@ -599,18 +533,18 @@ retention_analysis:
 &lt;Subject 2&gt; (appears in [Shot 1]): fully_preserved - her face, identity and clothing are held identical to &lt;Picture 2&gt; in every frame with zero drift.
 
 detailed_description:
-The target video is live-action and cinematic, </span><mark class="gear">shot on an ARRI Alexa Mini with a Zeiss Ultra Prime 35mm, on a fluid-head tripod</mark><span>, cold blue-green arctic lighting with the aurora glowing softly overhead, a slightly desaturated palette.
-[Shot 1] A waist-up medium close-up frames &lt;Subject 1&gt; standing completely still on the snowy rocky shore, with dark rocky cliffs, patches of green aurora borealis in the sky, still water, and an old wooden sailing ship with tall masts anchored behind her. </span><mark class="clause">The camera starts framed on &lt;Subject 1&gt;, then whip pans right away from her and lands on &lt;Subject 2&gt; standing further along the shore, the cliffs and snow between them smearing into streaked horizontal motion blur through the middle of the move, the frame settling and resolving sharply on &lt;Subject 2&gt;'s face.</mark><span> &lt;Subject 1&gt;'s expression is caught mid-realization in the instant before the camera leaves her, and &lt;Subject 2&gt; is already turning to look back as the frame settles on her - the shot ends held on &lt;Subject 2&gt;, not on &lt;Subject 1&gt;.
+The target video is live-action and cinematic, shot on an ARRI Alexa Mini with a Zeiss Ultra Prime 35mm, on a fluid-head tripod, cold blue-green arctic lighting with the aurora glowing softly overhead, a slightly desaturated palette.
+[Shot 1] A waist-up medium close-up frames &lt;Subject 1&gt; standing completely still on the snowy rocky shore, with dark rocky cliffs, patches of green aurora borealis in the sky, still water, and an old wooden sailing ship with tall masts anchored behind her. The camera starts framed on &lt;Subject 1&gt;, then whip pans right away from her and lands on &lt;Subject 2&gt; standing further along the shore, the cliffs and snow between them smearing into streaked horizontal motion blur through the middle of the move, the frame settling and resolving sharply on &lt;Subject 2&gt;'s face. &lt;Subject 1&gt;'s expression is caught mid-realization in the instant before the camera leaves her, and &lt;Subject 2&gt; is already turning to look back as the frame settles on her - the shot ends held on &lt;Subject 2&gt;, not on &lt;Subject 1&gt;.
 
 overall_soundscape: A faint cold wind continues throughout, with distant creaking from the ship's rigging, and &lt;Subject 1&gt;'s breathing growing faster and shallower as the shot progresses.
 
 non_diegetic_music: A single sustained low string note swells partway through the shot, then fades toward the end.
-</span></pre>
+</pre>
           </div>
         </div>
       </article>
 
-      <article class="card" id="dutch-angle" data-group="pan and roll">
+      <article class="card g-pan-and-roll" id="dutch-angle" data-group="pan and roll">
         <header class="card-head">
           <div class="card-title">
             <h2>Dutch angle</h2>
@@ -620,18 +554,14 @@ non_diegetic_music: A single sustained low string note swells partway through th
             <div><dt>frames</dt><dd>124</dd></div>
             <div><dt>length</dt><dd>5.17s</dd></div>
             <div><dt>size</dt><dd>1344&times;768</dd></div>
-            <div><dt>clause</dt><dd>18 of 295 words</dd></div>
           </dl>
         </header>
 
         <div class="card-body">
           <div class="media">
-            <video controls preload="none" playsinline
-                   poster="assets/posters/C-09.jpg"
-                   src="assets/clips/C-09.mp4"></video>
+            <img class="still" src="assets/stills/C-09.jpg"
+                 alt="Frame from the dutch angle shot" loading="lazy">
             <div class="dl">
-              <a class="btn" href="assets/clips/C-09.mp4" download>Clip <span>mp4, 1.0 MB</span></a>
-              <a class="btn" href="prompts/C-09_dutch-angle.txt" download>Prompt <span>txt</span></a>
               <a class="btn" href="assets/workflow/h3_dollyzoom_test_v6flip.json" download>Workflow <span>ComfyUI json</span></a>
             </div>
             <div class="refs">
@@ -642,10 +572,10 @@ non_diegetic_music: A single sustained low string note swells partway through th
 
           <div class="prompt">
             <div class="prompt-head">
-              <code>C-09_dutch-angle.txt</code>
-              <button class="copy" data-target="p-C-09">Copy prompt</button>
+              <span class="prompt-label">Prompt</span>
+              <button class="copy" data-target="p-C-09">Copy</button>
             </div>
-            <pre id="p-C-09" class="prompt-body"><span>subject_definitions:
+            <pre id="p-C-09" class="prompt-body">subject_definitions:
 &lt;Subject 1&gt; is the young woman in &lt;Picture 1&gt;: shoulder-length dark brown wavy hair, fair skin and blue-grey eyes, wearing a chunky oatmeal cable-knit wool sweater. Her exact facial structure, features and proportions stay identical to &lt;Picture 1&gt; in every frame.
 
 summary:
@@ -655,18 +585,18 @@ retention_analysis:
 &lt;Subject 1&gt; (appears in [Shot 1]): fully_preserved - her face, identity and clothing are held identical to &lt;Picture 1&gt; in every frame with zero drift.
 
 detailed_description:
-The target video is live-action and cinematic, </span><mark class="gear">shot on an ARRI Alexa with a Cooke S4 35mm prime, on a tripod with the head canted over</mark><span>, cold blue dusk light filtering down through the pines, a muted desaturated palette.
-[Shot 1] A waist-up medium close-up frames &lt;Subject 1&gt; standing completely still on the snow between the trees, with tall dark conifers receding into blue mist, snow lying heavy on the branches behind her. </span><mark class="clause">The camera rolls counterclockwise into a canted dutch angle and holds there, the horizon tilted, &lt;Subject 1&gt; off-axis.</mark><span> As the shot plays out, &lt;Subject 1&gt;'s expression shifts from blank and neutral into dawning realization and slight shock: her eyes widen and focus more intensely, her brow lifts and tightens, her lips part slightly, and her breathing grows visibly shallower and faster, the change building through the middle of the shot and settling into a held, wide-eyed stillness by the end.
+The target video is live-action and cinematic, shot on an ARRI Alexa with a Cooke S4 35mm prime, on a tripod with the head canted over, cold blue dusk light filtering down through the pines, a muted desaturated palette.
+[Shot 1] A waist-up medium close-up frames &lt;Subject 1&gt; standing completely still on the snow between the trees, with tall dark conifers receding into blue mist, snow lying heavy on the branches behind her. The camera rolls counterclockwise into a canted dutch angle and holds there, the horizon tilted, &lt;Subject 1&gt; off-axis. As the shot plays out, &lt;Subject 1&gt;'s expression shifts from blank and neutral into dawning realization and slight shock: her eyes widen and focus more intensely, her brow lifts and tightens, her lips part slightly, and her breathing grows visibly shallower and faster, the change building through the middle of the shot and settling into a held, wide-eyed stillness by the end.
 
 overall_soundscape: Deep forest hush, snow settling from branches, a distant crack of timber, and &lt;Subject 1&gt;'s breathing growing faster and shallower as the shot progresses.
 
 non_diegetic_music: A single sustained low string note swells partway through the shot, then fades toward the end.
-</span></pre>
+</pre>
           </div>
         </div>
       </article>
 
-      <article class="card" id="super-dolly-in" data-group="tracking">
+      <article class="card g-tracking" id="super-dolly-in" data-group="tracking">
         <header class="card-head">
           <div class="card-title">
             <h2>Super dolly in</h2>
@@ -676,18 +606,14 @@ non_diegetic_music: A single sustained low string note swells partway through th
             <div><dt>frames</dt><dd>124</dd></div>
             <div><dt>length</dt><dd>5.17s</dd></div>
             <div><dt>size</dt><dd>1344&times;768</dd></div>
-            <div><dt>clause</dt><dd>65 of 368 words</dd></div>
           </dl>
         </header>
 
         <div class="card-body">
           <div class="media">
-            <video controls preload="none" playsinline
-                   poster="assets/posters/C-03.jpg"
-                   src="assets/clips/C-03.mp4"></video>
+            <img class="still" src="assets/stills/C-03.jpg"
+                 alt="Frame from the super dolly in shot" loading="lazy">
             <div class="dl">
-              <a class="btn" href="assets/clips/C-03.mp4" download>Clip <span>mp4, 3.2 MB</span></a>
-              <a class="btn" href="prompts/C-03_super-dolly-in.txt" download>Prompt <span>txt</span></a>
               <a class="btn" href="assets/workflow/h3_dollyzoom_test_v6flip.json" download>Workflow <span>ComfyUI json</span></a>
             </div>
             <div class="refs">
@@ -698,10 +624,10 @@ non_diegetic_music: A single sustained low string note swells partway through th
 
           <div class="prompt">
             <div class="prompt-head">
-              <code>C-03_super-dolly-in.txt</code>
-              <button class="copy" data-target="p-C-03">Copy prompt</button>
+              <span class="prompt-label">Prompt</span>
+              <button class="copy" data-target="p-C-03">Copy</button>
             </div>
-            <pre id="p-C-03" class="prompt-body"><span>subject_definitions:
+            <pre id="p-C-03" class="prompt-body">subject_definitions:
 &lt;Subject 1&gt; is the young woman in &lt;Picture 1&gt;: shoulder-length dark brown wavy hair, fair skin and blue-grey eyes, wearing a chunky oatmeal cable-knit wool sweater. Her exact facial structure, features and proportions stay identical to &lt;Picture 1&gt; in every frame.
 
 summary:
@@ -711,18 +637,18 @@ retention_analysis:
 &lt;Subject 1&gt; (appears in [Shot 1]): fully_preserved - her face, identity and clothing are held identical to &lt;Picture 1&gt; in every frame with zero drift.
 
 detailed_description:
-The target video is live-action and cinematic, </span><mark class="gear">shot on an ARRI Alexa with a Cooke S4 35mm prime, on a dolly running on track</mark><span>, cold blue dusk light filtering down through the pines, a muted desaturated palette.
-[Shot 1] An extreme wide shot looks straight down a forest track, the trunks of two near pines rising close at the left and right edges of frame, and places &lt;Subject 1&gt; small and distant at the far end of it, standing in place on the snow between the trees, breathing softly, hair and clothing stirring in the air, blinking and shifting her weight a little as people naturally do, with tall dark conifers receding into blue mist, snow lying heavy on the branches behind her. </span><mark class="clause">The camera pushes in with large amplitude at fast speed, charging the entire length of the track toward her: the two near pines sweep outward past the edges of frame and out of shot as the camera passes them, further trunks rush by on both sides and the snow streams underneath, and the move ends in a tight close-up with her face filling the frame.</mark><span> &lt;Subject 1&gt;'s expression hardens into defiance as the camera closes on her - jaw setting, chin lifting, her gaze steady and level by the end.
+The target video is live-action and cinematic, shot on an ARRI Alexa with a Cooke S4 35mm prime, on a dolly running on track, cold blue dusk light filtering down through the pines, a muted desaturated palette.
+[Shot 1] An extreme wide shot looks straight down a forest track, the trunks of two near pines rising close at the left and right edges of frame, and places &lt;Subject 1&gt; small and distant at the far end of it, standing in place on the snow between the trees, breathing softly, hair and clothing stirring in the air, blinking and shifting her weight a little as people naturally do, with tall dark conifers receding into blue mist, snow lying heavy on the branches behind her. The camera pushes in with large amplitude at fast speed, charging the entire length of the track toward her: the two near pines sweep outward past the edges of frame and out of shot as the camera passes them, further trunks rush by on both sides and the snow streams underneath, and the move ends in a tight close-up with her face filling the frame. &lt;Subject 1&gt;'s expression hardens into defiance as the camera closes on her - jaw setting, chin lifting, her gaze steady and level by the end.
 
 overall_soundscape: Deep forest hush and snow settling from branches, building into a rushing wall of air with snow and needles streaming past, then dropping away to close, still quiet on her face.
 
 non_diegetic_music: A low sustained bass tone climbing steadily in pitch and volume through the whole shot, cut off dead on the final frame.
-</span></pre>
+</pre>
           </div>
         </div>
       </article>
 
-      <article class="card" id="eyes-in" data-group="tracking">
+      <article class="card g-tracking" id="eyes-in" data-group="tracking">
         <header class="card-head">
           <div class="card-title">
             <h2>Eyes in</h2>
@@ -732,18 +658,14 @@ non_diegetic_music: A low sustained bass tone climbing steadily in pitch and vol
             <div><dt>frames</dt><dd>124</dd></div>
             <div><dt>length</dt><dd>5.17s</dd></div>
             <div><dt>size</dt><dd>1344&times;768</dd></div>
-            <div><dt>clause</dt><dd>37 of 333 words</dd></div>
           </dl>
         </header>
 
         <div class="card-body">
           <div class="media">
-            <video controls preload="none" playsinline
-                   poster="assets/posters/C-10.jpg"
-                   src="assets/clips/C-10.mp4"></video>
+            <img class="still" src="assets/stills/C-10.jpg"
+                 alt="Frame from the eyes in shot" loading="lazy">
             <div class="dl">
-              <a class="btn" href="assets/clips/C-10.mp4" download>Clip <span>mp4, 1.5 MB</span></a>
-              <a class="btn" href="prompts/C-10_eyes-in.txt" download>Prompt <span>txt</span></a>
               <a class="btn" href="assets/workflow/h3_dollyzoom_test_v6flip.json" download>Workflow <span>ComfyUI json</span></a>
             </div>
             <div class="refs">
@@ -754,10 +676,10 @@ non_diegetic_music: A low sustained bass tone climbing steadily in pitch and vol
 
           <div class="prompt">
             <div class="prompt-head">
-              <code>C-10_eyes-in.txt</code>
-              <button class="copy" data-target="p-C-10">Copy prompt</button>
+              <span class="prompt-label">Prompt</span>
+              <button class="copy" data-target="p-C-10">Copy</button>
             </div>
-            <pre id="p-C-10" class="prompt-body"><span>subject_definitions:
+            <pre id="p-C-10" class="prompt-body">subject_definitions:
 &lt;Subject 1&gt; is the young woman in &lt;Picture 1&gt;: long wavy ginger-red hair, fair skin with light freckles, wearing a cream short-sleeve t-shirt, a dark cord necklace with a metal cross pendant, high-waisted blue jeans with a brown leather belt and a small brown pouch, and woven cord wrist wraps on both wrists. Her exact facial structure, features and proportions stay identical to &lt;Picture 1&gt; in every frame.
 
 summary:
@@ -767,18 +689,18 @@ retention_analysis:
 &lt;Subject 1&gt; (appears in [Shot 1]): fully_preserved - her face, identity and clothing are held identical to &lt;Picture 1&gt; in every frame with zero drift.
 
 detailed_description:
-The target video is live-action and cinematic, </span><mark class="gear">shot on an ARRI Alexa with a Cooke S4 75mm prime, on a slider for a slow push</mark><span>, cold blue-green arctic lighting with the aurora glowing softly overhead, a slightly desaturated palette.
-[Shot 1] A waist-up medium close-up frames &lt;Subject 1&gt; standing in place on the snowy rocky shore, breathing softly, hair and clothing stirring in the air, blinking and shifting her weight a little as people naturally do, with dark rocky cliffs, patches of green aurora borealis in the sky, still water, and an old wooden sailing ship with tall masts anchored behind her. </span><mark class="clause">The camera pushes in with large amplitude at slow speed toward &lt;Subject 1&gt;'s face and keeps going past it until her right eye fills the entire frame edge to edge, the iris and pupil filling the view.</mark><span> &lt;Subject 1&gt;'s expression tightens slowly into dread as the camera closes - pupils contracting, a single blink, then held wide and unmoving.
+The target video is live-action and cinematic, shot on an ARRI Alexa with a Cooke S4 75mm prime, on a slider for a slow push, cold blue-green arctic lighting with the aurora glowing softly overhead, a slightly desaturated palette.
+[Shot 1] A waist-up medium close-up frames &lt;Subject 1&gt; standing in place on the snowy rocky shore, breathing softly, hair and clothing stirring in the air, blinking and shifting her weight a little as people naturally do, with dark rocky cliffs, patches of green aurora borealis in the sky, still water, and an old wooden sailing ship with tall masts anchored behind her. The camera pushes in with large amplitude at slow speed toward &lt;Subject 1&gt;'s face and keeps going past it until her right eye fills the entire frame edge to edge, the iris and pupil filling the view. &lt;Subject 1&gt;'s expression tightens slowly into dread as the camera closes - pupils contracting, a single blink, then held wide and unmoving.
 
 overall_soundscape: Cold wind and distant surf receding steadily into muffled quiet, until nothing is left but one slow heartbeat as the eye fills the frame.
 
 non_diegetic_music: A high sustained string that tightens and narrows as the shot closes in, thinning to a single thread.
-</span></pre>
+</pre>
           </div>
         </div>
       </article>
 
-      <article class="card" id="aerial-pullback" data-group="tracking">
+      <article class="card g-tracking" id="aerial-pullback" data-group="tracking">
         <header class="card-head">
           <div class="card-title">
             <h2>Aerial pullback</h2>
@@ -788,18 +710,14 @@ non_diegetic_music: A high sustained string that tightens and narrows as the sho
             <div><dt>frames</dt><dd>124</dd></div>
             <div><dt>length</dt><dd>5.17s</dd></div>
             <div><dt>size</dt><dd>1344&times;768</dd></div>
-            <div><dt>clause</dt><dd>34 of 284 words</dd></div>
           </dl>
         </header>
 
         <div class="card-body">
           <div class="media">
-            <video controls preload="none" playsinline
-                   poster="assets/posters/C-06.jpg"
-                   src="assets/clips/C-06.mp4"></video>
+            <img class="still" src="assets/stills/C-06.jpg"
+                 alt="Frame from the aerial pullback shot" loading="lazy">
             <div class="dl">
-              <a class="btn" href="assets/clips/C-06.mp4" download>Clip <span>mp4, 3.0 MB</span></a>
-              <a class="btn" href="prompts/C-06_aerial-pullback.txt" download>Prompt <span>txt</span></a>
               <a class="btn" href="assets/workflow/h3_dollyzoom_test_v6flip.json" download>Workflow <span>ComfyUI json</span></a>
             </div>
             <div class="refs">
@@ -810,10 +728,10 @@ non_diegetic_music: A high sustained string that tightens and narrows as the sho
 
           <div class="prompt">
             <div class="prompt-head">
-              <code>C-06_aerial-pullback.txt</code>
-              <button class="copy" data-target="p-C-06">Copy prompt</button>
+              <span class="prompt-label">Prompt</span>
+              <button class="copy" data-target="p-C-06">Copy</button>
             </div>
-            <pre id="p-C-06" class="prompt-body"><span>subject_definitions:
+            <pre id="p-C-06" class="prompt-body">subject_definitions:
 &lt;Subject 1&gt; is the young woman in &lt;Picture 1&gt;: shoulder-length dark brown wavy hair, fair skin and blue-grey eyes, wearing a chunky oatmeal cable-knit wool sweater. Her exact facial structure, features and proportions stay identical to &lt;Picture 1&gt; in every frame.
 
 summary:
@@ -823,18 +741,18 @@ retention_analysis:
 &lt;Subject 1&gt; (appears in [Shot 1]): fully_preserved - her face, identity and clothing are held identical to &lt;Picture 1&gt; in every frame with zero drift.
 
 detailed_description:
-The target video is live-action and cinematic, </span><mark class="gear">shot on a RED V-Raptor with a 14mm wide prime, flown on a drone</mark><span>, cold blue dusk light filtering down through the pines, a muted desaturated palette.
-[Shot 1] A waist-up medium close-up frames &lt;Subject 1&gt; standing in place on the snow between the trees, breathing softly, hair and clothing stirring in the air, blinking and shifting her weight a little as people naturally do, with tall dark conifers receding into blue mist, snow lying heavy on the branches behind her. </span><mark class="clause">The camera pulls out with large amplitude at fast speed while pedestalling up, rising and retreating until &lt;Subject 1&gt; is a small lone figure far below and the whole forest opens out around her.</mark><span> &lt;Subject 1&gt; stands alone and unmoving as she recedes, head tipping slowly back to take in the scale of the place as it opens around her.
+The target video is live-action and cinematic, shot on a RED V-Raptor with a 14mm wide prime, flown on a drone, cold blue dusk light filtering down through the pines, a muted desaturated palette.
+[Shot 1] A waist-up medium close-up frames &lt;Subject 1&gt; standing in place on the snow between the trees, breathing softly, hair and clothing stirring in the air, blinking and shifting her weight a little as people naturally do, with tall dark conifers receding into blue mist, snow lying heavy on the branches behind her. The camera pulls out with large amplitude at fast speed while pedestalling up, rising and retreating until &lt;Subject 1&gt; is a small lone figure far below and the whole forest opens out around her. &lt;Subject 1&gt; stands alone and unmoving as she recedes, head tipping slowly back to take in the scale of the place as it opens around her.
 
 overall_soundscape: Deep forest hush, snow settling from branches, a distant crack of timber, and &lt;Subject 1&gt;'s breathing stays audible throughout.
 
 non_diegetic_music: A single sustained low string note swells partway through the shot, then fades toward the end.
-</span></pre>
+</pre>
           </div>
         </div>
       </article>
 
-      <article class="card" id="handheld" data-group="tracking">
+      <article class="card g-tracking" id="handheld" data-group="tracking">
         <header class="card-head">
           <div class="card-title">
             <h2>Handheld</h2>
@@ -844,18 +762,14 @@ non_diegetic_music: A single sustained low string note swells partway through th
             <div><dt>frames</dt><dd>124</dd></div>
             <div><dt>length</dt><dd>5.17s</dd></div>
             <div><dt>size</dt><dd>1344&times;768</dd></div>
-            <div><dt>clause</dt><dd>26 of 295 words</dd></div>
           </dl>
         </header>
 
         <div class="card-body">
           <div class="media">
-            <video controls preload="none" playsinline
-                   poster="assets/posters/C-07.jpg"
-                   src="assets/clips/C-07.mp4"></video>
+            <img class="still" src="assets/stills/C-07.jpg"
+                 alt="Frame from the handheld shot" loading="lazy">
             <div class="dl">
-              <a class="btn" href="assets/clips/C-07.mp4" download>Clip <span>mp4, 2.0 MB</span></a>
-              <a class="btn" href="prompts/C-07_handheld.txt" download>Prompt <span>txt</span></a>
               <a class="btn" href="assets/workflow/h3_dollyzoom_test_v6flip.json" download>Workflow <span>ComfyUI json</span></a>
             </div>
             <div class="refs">
@@ -866,10 +780,10 @@ non_diegetic_music: A single sustained low string note swells partway through th
 
           <div class="prompt">
             <div class="prompt-head">
-              <code>C-07_handheld.txt</code>
-              <button class="copy" data-target="p-C-07">Copy prompt</button>
+              <span class="prompt-label">Prompt</span>
+              <button class="copy" data-target="p-C-07">Copy</button>
             </div>
-            <pre id="p-C-07" class="prompt-body"><span>subject_definitions:
+            <pre id="p-C-07" class="prompt-body">subject_definitions:
 &lt;Subject 1&gt; is the young woman in &lt;Picture 1&gt;: long wavy ginger-red hair, fair skin with light freckles, wearing a cream short-sleeve t-shirt, a dark cord necklace with a metal cross pendant, high-waisted blue jeans with a brown leather belt and a small brown pouch, and woven cord wrist wraps on both wrists. Her exact facial structure, features and proportions stay identical to &lt;Picture 1&gt; in every frame.
 
 summary:
@@ -879,18 +793,18 @@ retention_analysis:
 &lt;Subject 1&gt; (appears in [Shot 1]): fully_preserved - her face, identity and clothing are held identical to &lt;Picture 1&gt; in every frame with zero drift.
 
 detailed_description:
-The target video is live-action and cinematic, </span><mark class="gear">shot on an ARRI Alexa Mini with a Canon K-35 35mm, handheld and running with her</mark><span>, cold blue-green arctic lighting with the aurora glowing softly overhead, a slightly desaturated palette.
-[Shot 1] A waist-up medium close-up frames &lt;Subject 1&gt; running on the snowy rocky shore, hair flying and clothing snapping with the movement, with dark rocky cliffs, patches of green aurora borealis in the sky, still water, and an old wooden sailing ship with tall masts anchored behind her. </span><mark class="clause">The camera shakes strongly at fast speed while performing a tracking shot alongside &lt;Subject 1&gt; as she runs, the frame lurching and correcting with every stride.</mark><span> &lt;Subject 1&gt; runs with urgent purpose, lips pressed closed and jaw set, glancing back once over her shoulder without breaking stride.
+The target video is live-action and cinematic, shot on an ARRI Alexa Mini with a Canon K-35 35mm, handheld and running with her, cold blue-green arctic lighting with the aurora glowing softly overhead, a slightly desaturated palette.
+[Shot 1] A waist-up medium close-up frames &lt;Subject 1&gt; running on the snowy rocky shore, hair flying and clothing snapping with the movement, with dark rocky cliffs, patches of green aurora borealis in the sky, still water, and an old wooden sailing ship with tall masts anchored behind her. The camera shakes strongly at fast speed while performing a tracking shot alongside &lt;Subject 1&gt; as she runs, the frame lurching and correcting with every stride. &lt;Subject 1&gt; runs with urgent purpose, lips pressed closed and jaw set, glancing back once over her shoulder without breaking stride.
 
 overall_soundscape: A faint cold wind continues throughout, with distant creaking from the ship's rigging, and &lt;Subject 1&gt;'s breathing stays audible throughout.
 
 non_diegetic_music: A single sustained low string note swells partway through the shot, then fades toward the end.
-</span></pre>
+</pre>
           </div>
         </div>
       </article>
 
-      <article class="card" id="orbit-360" data-group="tracking">
+      <article class="card g-tracking" id="orbit-360" data-group="tracking">
         <header class="card-head">
           <div class="card-title">
             <h2>360 orbit</h2>
@@ -900,18 +814,14 @@ non_diegetic_music: A single sustained low string note swells partway through th
             <div><dt>frames</dt><dd>124</dd></div>
             <div><dt>length</dt><dd>5.17s</dd></div>
             <div><dt>size</dt><dd>1344&times;768</dd></div>
-            <div><dt>clause</dt><dd>27 of 303 words</dd></div>
           </dl>
         </header>
 
         <div class="card-body">
           <div class="media">
-            <video controls preload="none" playsinline
-                   poster="assets/posters/C-04.jpg"
-                   src="assets/clips/C-04.mp4"></video>
+            <img class="still" src="assets/stills/C-04.jpg"
+                 alt="Frame from the 360 orbit shot" loading="lazy">
             <div class="dl">
-              <a class="btn" href="assets/clips/C-04.mp4" download>Clip <span>mp4, 2.3 MB</span></a>
-              <a class="btn" href="prompts/C-04_360-orbit.txt" download>Prompt <span>txt</span></a>
               <a class="btn" href="assets/workflow/h3_dollyzoom_test_v6flip.json" download>Workflow <span>ComfyUI json</span></a>
             </div>
             <div class="refs">
@@ -922,10 +832,10 @@ non_diegetic_music: A single sustained low string note swells partway through th
 
           <div class="prompt">
             <div class="prompt-head">
-              <code>C-04_360-orbit.txt</code>
-              <button class="copy" data-target="p-C-04">Copy prompt</button>
+              <span class="prompt-label">Prompt</span>
+              <button class="copy" data-target="p-C-04">Copy</button>
             </div>
-            <pre id="p-C-04" class="prompt-body"><span>subject_definitions:
+            <pre id="p-C-04" class="prompt-body">subject_definitions:
 &lt;Subject 1&gt; is the young woman in &lt;Picture 1&gt;: long dark brown wavy hair, warm olive skin and a bright open smile, wearing a white lace-trimmed cropped camisole and high-waisted beige trousers. Her exact facial structure, features and proportions stay identical to &lt;Picture 1&gt; in every frame.
 
 summary:
@@ -935,18 +845,18 @@ retention_analysis:
 &lt;Subject 1&gt; (appears in [Shot 1]): fully_preserved - her face, identity and clothing are held identical to &lt;Picture 1&gt; in every frame with zero drift.
 
 detailed_description:
-The target video is live-action and cinematic, </span><mark class="gear">shot on an ARRI Alexa Mini with a Zeiss Ultra Prime 35mm, on a gimbal circling her</mark><span>, warm golden-hour sunlight with strong lens flare, a rich saturated palette.
-[Shot 1] A waist-up medium close-up frames &lt;Subject 1&gt; standing in place on the warm rooftop deck, breathing softly, hair and clothing stirring in the air, blinking and shifting her weight a little as people naturally do, with low sun flaring between distant towers, potted plants and strings of lights behind her. </span><mark class="clause">The camera performs an arc shot around &lt;Subject 1&gt; with large amplitude at fast speed, sweeping a complete circle around her and coming back to the front.</mark><span> &lt;Subject 1&gt; stays where she is through the sweep, turning her head slightly to keep the camera in view, a slow private smile spreading, hair lifting in the rooftop breeze as though she is the only calm thing in a turning world.
+The target video is live-action and cinematic, shot on an ARRI Alexa Mini with a Zeiss Ultra Prime 35mm, on a gimbal circling her, warm golden-hour sunlight with strong lens flare, a rich saturated palette.
+[Shot 1] A waist-up medium close-up frames &lt;Subject 1&gt; standing in place on the warm rooftop deck, breathing softly, hair and clothing stirring in the air, blinking and shifting her weight a little as people naturally do, with low sun flaring between distant towers, potted plants and strings of lights behind her. The camera performs an arc shot around &lt;Subject 1&gt; with large amplitude at fast speed, sweeping a complete circle around her and coming back to the front. &lt;Subject 1&gt; stays where she is through the sweep, turning her head slightly to keep the camera in view, a slow private smile spreading, hair lifting in the rooftop breeze as though she is the only calm thing in a turning world.
 
 overall_soundscape: City traffic far below turning steadily around her, one continuous sweep of wind, strings of lights ticking past in turn.
 
 non_diegetic_music: A circling arpeggio that completes exactly one full turn and lands back on the note it started on.
-</span></pre>
+</pre>
           </div>
         </div>
       </article>
 
-      <article class="card" id="crane-rise" data-group="tracking">
+      <article class="card g-tracking" id="crane-rise" data-group="tracking">
         <header class="card-head">
           <div class="card-title">
             <h2>Crane rise</h2>
@@ -956,18 +866,14 @@ non_diegetic_music: A circling arpeggio that completes exactly one full turn and
             <div><dt>frames</dt><dd>124</dd></div>
             <div><dt>length</dt><dd>5.17s</dd></div>
             <div><dt>size</dt><dd>1344&times;768</dd></div>
-            <div><dt>clause</dt><dd>41 of 289 words</dd></div>
           </dl>
         </header>
 
         <div class="card-body">
           <div class="media">
-            <video controls preload="none" playsinline
-                   poster="assets/posters/C-05.jpg"
-                   src="assets/clips/C-05.mp4"></video>
+            <img class="still" src="assets/stills/C-05.jpg"
+                 alt="Frame from the crane rise shot" loading="lazy">
             <div class="dl">
-              <a class="btn" href="assets/clips/C-05.mp4" download>Clip <span>mp4, 2.4 MB</span></a>
-              <a class="btn" href="prompts/C-05_crane-drone-rise.txt" download>Prompt <span>txt</span></a>
               <a class="btn" href="assets/workflow/h3_dollyzoom_test_v6flip.json" download>Workflow <span>ComfyUI json</span></a>
             </div>
             <div class="refs">
@@ -978,10 +884,10 @@ non_diegetic_music: A circling arpeggio that completes exactly one full turn and
 
           <div class="prompt">
             <div class="prompt-head">
-              <code>C-05_crane-drone-rise.txt</code>
-              <button class="copy" data-target="p-C-05">Copy prompt</button>
+              <span class="prompt-label">Prompt</span>
+              <button class="copy" data-target="p-C-05">Copy</button>
             </div>
-            <pre id="p-C-05" class="prompt-body"><span>subject_definitions:
+            <pre id="p-C-05" class="prompt-body">subject_definitions:
 &lt;Subject 1&gt; is the young woman in &lt;Picture 1&gt;: long light brown wavy hair, fair freckled skin, round gold-rimmed glasses, wearing a simple white slip dress with thin straps. Her exact facial structure, features and proportions stay identical to &lt;Picture 1&gt; in every frame.
 
 summary:
@@ -991,31 +897,20 @@ retention_analysis:
 &lt;Subject 1&gt; (appears in [Shot 1]): fully_preserved - her face, identity and clothing are held identical to &lt;Picture 1&gt; in every frame with zero drift.
 
 detailed_description:
-The target video is live-action and cinematic, </span><mark class="gear">shot on a RED V-Raptor with a 35mm prime, flown on a drone tracking alongside her</mark><span>, warm soft afternoon sunlight, a bright natural palette.
-[Shot 1] A waist-up medium close-up frames &lt;Subject 1&gt; running steadily through the tall grass, hair flying and clothing snapping with the movement, with dry grass and wildflowers moving in the breeze, a soft distant treeline behind her. </span><mark class="clause">The camera starts low at &lt;Subject 1&gt;'s feet as she runs, then performs a tracking shot with large amplitude at fast speed, pedestalling up and tilting down to follow her from high overhead while she stays centred and sharp in frame.</mark><span> &lt;Subject 1&gt; runs at a steady rhythm with her lips closed and her jaw relaxed, chin level and hair flying, her expression easing out of hard concentration into open delight as the camera lifts away from her.
+The target video is live-action and cinematic, shot on a RED V-Raptor with a 35mm prime, flown on a drone tracking alongside her, warm soft afternoon sunlight, a bright natural palette.
+[Shot 1] A waist-up medium close-up frames &lt;Subject 1&gt; running steadily through the tall grass, hair flying and clothing snapping with the movement, with dry grass and wildflowers moving in the breeze, a soft distant treeline behind her. The camera starts low at &lt;Subject 1&gt;'s feet as she runs, then performs a tracking shot with large amplitude at fast speed, pedestalling up and tilting down to follow her from high overhead while she stays centred and sharp in frame. &lt;Subject 1&gt; runs at a steady rhythm with her lips closed and her jaw relaxed, chin level and hair flying, her expression easing out of hard concentration into open delight as the camera lifts away from her.
 
 overall_soundscape: Her footfalls and the hiss of grass close by at the start, thinning out into open air, high wind and distant birdsong.
 
 non_diegetic_music: A single held note that opens outward into a wide major chord across the shot.
-</span></pre>
+</pre>
           </div>
         </div>
       </article>
   </main>
-
-  <footer>
-    <p>The two marked passages in each prompt are the <strong>camera and lens</strong> and the
-       <strong>camera clause</strong>. They are sliced out of the prompt files in this repository by
-       <code>scripts/build_site.py</code>, so what you read here is what actually ran.</p>
-    <p>One caveat worth stating: the snorricam clip is <b>864&times;480</b> from the local pass rather than
-       native resolution. It was kept because the shot is better.</p>
-    <p><a href="https://github.com/loopforge0/minimaxh3-shots-skills">github.com/loopforge0/minimaxh3-shots-skills</a> &middot;
-       <a href="https://www.youtube.com/@LoopForge0">youtube.com/@LoopForge0</a></p>
-  </footer>
 </div>
 
 <script>
-  // filters
   const chips = document.querySelectorAll('.chip');
   const cards = document.querySelectorAll('.card');
   chips.forEach(c => c.addEventListener('click', () => {
@@ -1024,7 +919,6 @@ non_diegetic_music: A single held note that opens outward into a wide major chor
     cards.forEach(card => { card.hidden = !(f === 'all' || card.dataset.group === f); });
   }));
 
-  // copy prompt
   document.querySelectorAll('.copy').forEach(b => b.addEventListener('click', async () => {
     const el = document.getElementById(b.dataset.target);
     try {
@@ -1032,11 +926,6 @@ non_diegetic_music: A single held note that opens outward into a wide major chor
       const was = b.textContent; b.textContent = 'Copied';
       setTimeout(() => { b.textContent = was; }, 1400);
     } catch (e) { b.textContent = 'Press Ctrl C'; }
-  }));
-
-  // only one clip plays at a time
-  document.querySelectorAll('video').forEach(v => v.addEventListener('play', () => {
-    document.querySelectorAll('video').forEach(o => { if (o !== v) o.pause(); });
   }));
 </script>
 </body>

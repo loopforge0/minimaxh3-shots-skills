@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Build the GitHub Pages gallery in docs/ from the prompts in this repository.
 
-One card per shot: the clip, the exact prompt with its camera and lens phrase and its camera
-clause marked, and download links for everything that produced it.
+One card per shot: a still from the shot, the exact prompt that produced it, and the files
+behind it. The clips are not published here on purpose, so the shots are watched on YouTube.
 
     python scripts/build_site.py
 
@@ -10,7 +10,7 @@ Nothing here is retyped. The prompt text is sliced out of prompts/*.txt with an 
 shot, and every anchor must resolve exactly once or the build fails. Clip durations and sizes are
 read from the files with ffprobe and ffmpeg, never assumed.
 
-Sources outside this repository (clips, character plates, the ComfyUI workflow) are copied into
+Sources outside this repository (character plates, the ComfyUI workflow) are copied into
 docs/assets/ on the first run and then live here, so the published site is self-contained.
 """
 
@@ -44,12 +44,16 @@ SRC_LOGO = Path("E:/repos/h3-walking/showcase-video/assets/refs/loopforge-logo.p
 REPO_URL = "https://github.com/loopforge0/minimaxh3-shots-skills"
 SEED = "552013742"
 
+# Each group gets its own tone, stepping through the pink to blue of the Loop Forge mark.
+# The video's green is the video's; this is a Loop Forge page, so it wears the logo's palette.
 GROUPS = [
-    ("zoom", "the lens moves, not the camera"),
-    ("specialty", "rig, focus and compound moves"),
-    ("pan and roll", "the camera turns in place"),
-    ("tracking", "the camera travels"),
+    ("zoom",         "zoom",         "#f06bb8"),
+    ("specialty",    "specialty",    "#b57cf0"),
+    ("pan and roll", "pan-and-roll", "#6f95f7"),
+    ("tracking",     "tracking",     "#4fc9dd"),
 ]
+GROUP_SLUG = {g: s for g, s, _ in GROUPS}
+GROUP_TONE = {g: c for g, _, c in GROUPS}
 
 # id -> name, slug, group, prompt file, frames, reference plates,
 #       clause start anchor, clause end anchor, lighting anchor (where the gear phrase stops)
@@ -166,8 +170,13 @@ def slice_prompt(shot: str, text: str, start: str, end: str, lighting: str) -> d
 
 
 def stage() -> None:
-    """Copy the source media into docs/assets once, and build the web-sized derivatives."""
-    for sub in ("clips", "posters", "refs", "refs/thumbs", "workflow"):
+    """Copy the character plates and the workflow into docs/, and cut one still per shot.
+
+    The clips themselves are deliberately NOT published here. The video lives on YouTube and that
+    is where the shots should be watched; the page carries one frame per shot so a reader can tie
+    a prompt back to something they have already seen.
+    """
+    for sub in ("stills", "refs", "refs/thumbs", "workflow"):
         (OUT_ASSETS / sub).mkdir(parents=True, exist_ok=True)
 
     if SRC_LOGO.exists() and not (OUT_ASSETS / "loopforge-logo.png").exists():
@@ -189,40 +198,51 @@ def stage() -> None:
 
     for shot in SHOTS:
         sid = shot[0]
-        dst = OUT_ASSETS / "clips" / f"{sid}.mp4"
-        if not dst.exists():
-            src = SRC_CLIPS / f"{sid}_00001_.mp4"
-            if not src.exists():
-                sys.exit(f"error: {sid}: missing source clip {src}")
-            shutil.copy2(src, dst)
-        poster = OUT_ASSETS / "posters" / f"{sid}.jpg"
-        if not poster.exists():
-            dur, _, _ = probe(dst)
-            run(["ffmpeg", "-y", "-v", "error", "-ss", f"{dur / 2:.3f}", "-i", str(dst),
-                 "-frames:v", "1", "-q:v", "3", str(poster)])
+        still = OUT_ASSETS / "stills" / f"{sid}.jpg"
+        if still.exists():
+            continue
+        clip = SRC_CLIPS / f"{sid}_00001_.mp4"
+        if not clip.exists():
+            sys.exit(f"error: {sid}: no still yet and the source clip is missing ({clip})")
+        dur, _, _ = probe(clip)
+        run(["ffmpeg", "-y", "-v", "error", "-ss", f"{dur / 2:.3f}", "-i", str(clip),
+             "-frames:v", "1", "-q:v", "3", str(still)])
 
 
 def build_manifest() -> list[dict]:
+    """Per shot: the prompt slices, and the clip facts.
+
+    Clip facts are measured from the source clips when they are present. When they are not, the
+    values already in docs/data/shots.json are reused, so the site still rebuilds on a machine
+    that only has this repository.
+    """
+    cached = {}
+    prev = DOCS / "data" / "shots.json"
+    if prev.exists():
+        cached = {e["id"]: e for e in json.loads(prev.read_text(encoding="utf-8"))}
+
     out = []
     for (sid, name, slug, group, pfile, frames, refs, start, end, lighting) in SHOTS:
         path = PROMPTS / pfile
         if not path.exists():
             sys.exit(f"error: {sid}: missing prompt {path}")
-        text = path.read_text(encoding="utf-8")
-        parts = slice_prompt(sid, text, start, end, lighting)
+        parts = slice_prompt(sid, path.read_text(encoding="utf-8"), start, end, lighting)
 
-        clip = OUT_ASSETS / "clips" / f"{sid}.mp4"
-        dur, w, h = probe(clip)
-        entry = {
+        clip = SRC_CLIPS / f"{sid}_00001_.mp4"
+        if clip.exists():
+            dur, w, h = probe(clip)
+        elif sid in cached:
+            dur, w, h = cached[sid]["duration"], cached[sid]["width"], cached[sid]["height"]
+        else:
+            sys.exit(f"error: {sid}: no source clip and nothing cached to fall back on")
+
+        out.append({
             "id": sid, "name": name, "slug": slug, "group": group,
             "promptFile": pfile, "frames": frames, "refs": refs,
-            "duration": dur, "width": w, "height": h,
-            "clipBytes": clip.stat().st_size,
-            **parts,
-        }
-        out.append(entry)
+            "duration": dur, "width": w, "height": h, **parts,
+        })
         print(f"  {sid:<6} {name:<16} {group:<13} {dur:>6.3f}s  {w}x{h}  "
-              f"clause {parts['clauseWords']:>3}/{parts['promptWords']:>3} words")
+              f"{parts['promptWords']:>3} words")
     return out
 
 
@@ -232,23 +252,20 @@ def esc(s: str) -> str:
     return html.escape(s, quote=False)
 
 
-def prompt_html(e: dict) -> str:
-    """The prompt, with the two camera sections marked the same way the video marks them."""
-    return (f'<span>{esc(e["a"])}</span>'
-            f'<mark class="gear">{esc(e["gear"])}</mark>'
-            f'<span>{esc(e["b"])}</span>'
-            f'<mark class="clause">{esc(e["clause"])}</mark>'
-            f'<span>{esc(e["c"])}</span>')
-
-
 def card(e: dict, wf_name: str) -> str:
-    mb = e["clipBytes"] / 1e6
+    """One shot: a still, the plain prompt, and the files behind it.
+
+    The prompt is shown unmarked. On the page the whole thing is there to be read and copied;
+    colouring two passages of it is the video's job, not this one's.
+    """
+    gslug = GROUP_SLUG[e["group"]]
     refs = "".join(
         f'<a class="ref" href="assets/refs/{r}.png" download title="{r}.png">'
         f'<img src="assets/refs/thumbs/{r}.jpg" alt="{r}" loading="lazy"><span>{r}</span></a>'
         for r in e["refs"])
+    body = esc(e["a"] + e["gear"] + e["b"] + e["clause"] + e["c"])
     return f'''
-      <article class="card" id="{e["slug"]}" data-group="{e["group"]}">
+      <article class="card g-{gslug}" id="{e["slug"]}" data-group="{e["group"]}">
         <header class="card-head">
           <div class="card-title">
             <h2>{esc(e["name"])}</h2>
@@ -258,18 +275,14 @@ def card(e: dict, wf_name: str) -> str:
             <div><dt>frames</dt><dd>{e["frames"]}</dd></div>
             <div><dt>length</dt><dd>{e["duration"]:.2f}s</dd></div>
             <div><dt>size</dt><dd>{e["width"]}&times;{e["height"]}</dd></div>
-            <div><dt>clause</dt><dd>{e["clauseWords"]} of {e["promptWords"]} words</dd></div>
           </dl>
         </header>
 
         <div class="card-body">
           <div class="media">
-            <video controls preload="none" playsinline
-                   poster="assets/posters/{e["id"]}.jpg"
-                   src="assets/clips/{e["id"]}.mp4"></video>
+            <img class="still" src="assets/stills/{e["id"]}.jpg"
+                 alt="Frame from the {esc(e["name"].lower())} shot" loading="lazy">
             <div class="dl">
-              <a class="btn" href="assets/clips/{e["id"]}.mp4" download>Clip <span>mp4, {mb:.1f} MB</span></a>
-              <a class="btn" href="prompts/{e["promptFile"]}" download>Prompt <span>txt</span></a>
               <a class="btn" href="assets/workflow/{wf_name}" download>Workflow <span>ComfyUI json</span></a>
             </div>
             <div class="refs">
@@ -280,10 +293,10 @@ def card(e: dict, wf_name: str) -> str:
 
           <div class="prompt">
             <div class="prompt-head">
-              <code>{esc(e["promptFile"])}</code>
-              <button class="copy" data-target="p-{e["id"]}">Copy prompt</button>
+              <span class="prompt-label">Prompt</span>
+              <button class="copy" data-target="p-{e["id"]}">Copy</button>
             </div>
-            <pre id="p-{e["id"]}" class="prompt-body">{prompt_html(e)}</pre>
+            <pre id="p-{e["id"]}" class="prompt-body">{body}</pre>
           </div>
         </div>
       </article>'''
@@ -291,13 +304,13 @@ def card(e: dict, wf_name: str) -> str:
 
 def page(entries: list[dict], wf_name: str) -> str:
     cards = "\n".join(card(e, wf_name) for e in entries)
-    nav = "".join(
-        f'<button class="chip" data-filter="{g}">{g}'
+    chips = "".join(
+        f'<button class="chip g-{s}" data-filter="{g}">{g}'
         f'<span class="n">{sum(1 for e in entries if e["group"] == g)}</span></button>'
-        for g, _ in GROUPS)
-    legend = "".join(
-        f'<div><dt>{g}</dt><dd>{d}</dd></div>' for g, d in GROUPS)
-    total_mb = sum(e["clipBytes"] for e in entries) / 1e6
+        for g, s, _ in GROUPS)
+    # this f-string is not the page f-string, so a literal brace is {{ here, not {{{{
+    tones = "\n".join(f"  .g-{s} {{ --tone:{c}; }}" for _, s, c in GROUPS)
+    ramp = ",".join(c for _, _, c in GROUPS)
 
     return f'''<!DOCTYPE html>
 <html lang="en">
@@ -305,7 +318,7 @@ def page(entries: list[dict], wf_name: str) -> str:
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MiniMax H3 camera shots &middot; Loop Forge</title>
-<meta name="description" content="Fourteen named camera shots in MiniMax H3, with the exact prompt, clip, reference plates and ComfyUI workflow behind each one.">
+<meta name="description" content="The exact prompts behind fourteen named camera shots in MiniMax H3, with the reference plates and the ComfyUI workflow.">
 <link rel="icon" href="assets/loopforge-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -314,30 +327,29 @@ def page(entries: list[dict], wf_name: str) -> str:
   :root {{
     --ink:#07090c; --slate:#121a20; --slate-2:#1b2730;
     --frost:#e8eff2; --frost-dim:#93a7b2; --line:#2a3a45;
-    --works:#5fe3b1; --pink:#e85bbd; --blue:#5b8ff5;
+    --tone:#b57cf0;
     --r:14px;
   }}
+{tones}
   * {{ box-sizing:border-box; }}
-  html {{ scroll-behavior:smooth; scroll-padding-top:104px; }}
+  html {{ scroll-behavior:smooth; scroll-padding-top:150px; }}
   body {{
     margin:0; background:var(--ink); color:var(--frost);
     font-family:"Oswald",system-ui,sans-serif; font-weight:400;
     font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased;
   }}
-  a {{ color:var(--works); }}
+  a {{ color:var(--tone); }}
 
-  /* ---------- top bar ---------- */
   .bar {{
     position:sticky; top:0; z-index:20;
     display:flex; align-items:center; gap:18px;
-    padding:14px 28px; background:rgba(7,9,12,.86);
+    padding:14px 28px; background:rgba(7,9,12,.9);
     backdrop-filter:blur(14px);
     border-bottom:1px solid var(--line);
   }}
   .bar::after {{
     content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px;
-    background:linear-gradient(90deg,var(--pink),var(--blue),var(--works));
-    opacity:.85;
+    background:linear-gradient(90deg,{ramp});
   }}
   .bar img {{ width:40px; height:40px; flex:none; }}
   .brand {{ display:flex; flex-direction:column; line-height:1.15; }}
@@ -351,31 +363,12 @@ def page(entries: list[dict], wf_name: str) -> str:
   }}
   .bar nav a:hover {{ color:var(--frost); border-color:var(--frost-dim); }}
 
-  /* ---------- hero ---------- */
   .wrap {{ max-width:1320px; margin:0 auto; padding:0 28px 96px; }}
-  .hero {{ padding:64px 0 40px; border-bottom:1px solid var(--line); }}
-  .hero h1 {{
-    font-family:"Archivo Black",system-ui,sans-serif; font-weight:400;
-    font-size:clamp(38px,6vw,76px); line-height:1.02; letter-spacing:-.03em; margin:0 0 20px;
-  }}
-  .hero p {{ max-width:68ch; color:var(--frost-dim); margin:0 0 14px; }}
-  .hero strong {{ color:var(--frost); font-weight:500; }}
-  .meta {{
-    display:flex; flex-wrap:wrap; gap:10px 26px; margin-top:26px;
-    font-family:"JetBrains Mono",monospace; font-size:13px; color:var(--frost-dim);
-  }}
-  .meta b {{ color:var(--frost); font-weight:400; }}
 
-  .legend {{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px; margin:34px 0 0; }}
-  .legend div {{ border-top:2px solid var(--works); padding-top:12px; }}
-  .legend dt {{ font-weight:700; letter-spacing:.1em; text-transform:uppercase; font-size:14px; }}
-  .legend dd {{ margin:4px 0 0; color:var(--frost-dim); font-size:15px; }}
-
-  /* ---------- filters ---------- */
   .filters {{
     position:sticky; top:70px; z-index:10;
     display:flex; flex-wrap:wrap; gap:10px; align-items:center;
-    padding:18px 0; background:linear-gradient(var(--ink) 76%,rgba(7,9,12,0));
+    padding:20px 0 22px; background:linear-gradient(var(--ink) 74%,rgba(7,9,12,0));
   }}
   .chip {{
     font-family:inherit; font-size:14px; letter-spacing:.05em; text-transform:uppercase;
@@ -383,16 +376,14 @@ def page(entries: list[dict], wf_name: str) -> str:
     border:1px solid var(--line); border-radius:999px; padding:8px 15px;
     display:inline-flex; align-items:center; gap:9px;
   }}
-  .chip .n {{ font-family:"JetBrains Mono",monospace; font-size:12px; color:var(--works); }}
-  .chip:hover {{ color:var(--frost); }}
-  .chip[aria-pressed="true"] {{ color:var(--ink); background:var(--works); border-color:var(--works); }}
-  .chip[aria-pressed="true"] .n {{ color:var(--ink); }}
+  .chip .n {{ font-family:"JetBrains Mono",monospace; font-size:12px; color:var(--tone); }}
+  .chip:hover {{ color:var(--frost); border-color:var(--tone); }}
+  .chip[aria-pressed="true"] {{ color:var(--ink); background:var(--tone); border-color:var(--tone); }}
+  .chip[aria-pressed="true"] .n {{ color:var(--ink); opacity:.72; }}
 
-  /* ---------- card ---------- */
   .card {{
-    border:1px solid var(--line); border-radius:var(--r);
-    background:var(--slate); margin:22px 0; overflow:hidden;
-    scroll-margin-top:120px;
+    border:1px solid var(--line); border-left:3px solid var(--tone); border-radius:var(--r);
+    background:var(--slate); margin:22px 0; overflow:hidden; scroll-margin-top:160px;
   }}
   .card[hidden] {{ display:none; }}
   .card-head {{
@@ -406,16 +397,20 @@ def page(entries: list[dict], wf_name: str) -> str:
   }}
   .badge {{
     font-size:12px; letter-spacing:.12em; text-transform:uppercase;
-    color:var(--works); border:1px solid rgba(95,227,177,.4);
-    background:rgba(95,227,177,.1); border-radius:999px; padding:4px 11px;
+    color:var(--tone); border:1px solid color-mix(in srgb, var(--tone) 42%, transparent);
+    background:color-mix(in srgb, var(--tone) 12%, transparent);
+    border-radius:999px; padding:4px 11px;
   }}
   .specs {{ display:flex; flex-wrap:wrap; gap:8px 26px; margin:0; font-family:"JetBrains Mono",monospace; font-size:13px; }}
   .specs dt {{ color:var(--frost-dim); font-size:11px; letter-spacing:.08em; text-transform:uppercase; }}
   .specs dd {{ margin:2px 0 0; color:var(--frost); }}
 
-  .card-body {{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.05fr); gap:0; }}
+  .card-body {{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.05fr); }}
   .media {{ padding:22px 24px; border-right:1px solid var(--line); }}
-  video {{ width:100%; aspect-ratio:16/9; background:#000; border:1px solid var(--line); border-radius:10px; display:block; }}
+  .still {{
+    width:100%; aspect-ratio:16/9; object-fit:cover; display:block;
+    background:#000; border:1px solid var(--line); border-radius:10px;
+  }}
 
   .dl {{ display:flex; flex-wrap:wrap; gap:9px; margin-top:16px; }}
   .btn {{
@@ -425,8 +420,8 @@ def page(entries: list[dict], wf_name: str) -> str:
     border:1px solid var(--line); border-radius:9px; padding:9px 14px;
   }}
   .btn span {{ font-family:"JetBrains Mono",monospace; font-size:11px; color:var(--frost-dim); }}
-  .btn:hover {{ border-color:var(--works); color:var(--works); }}
-  .btn:hover span {{ color:var(--works); }}
+  .btn:hover {{ border-color:var(--tone); color:var(--tone); }}
+  .btn:hover span {{ color:var(--tone); }}
 
   .refs h3 {{
     font-size:11px; letter-spacing:.14em; text-transform:uppercase;
@@ -439,33 +434,29 @@ def page(entries: list[dict], wf_name: str) -> str:
     border:1px solid var(--line); border-radius:9px; background:var(--slate-2);
   }}
   .ref span {{ display:block; margin-top:5px; font-family:"JetBrains Mono",monospace; }}
-  .ref:hover img {{ border-color:var(--works); }}
-  .ref:hover span {{ color:var(--works); }}
+  .ref:hover img {{ border-color:var(--tone); }}
+  .ref:hover span {{ color:var(--tone); }}
 
   .prompt {{ display:flex; flex-direction:column; min-width:0; }}
   .prompt-head {{
     display:flex; align-items:center; justify-content:space-between; gap:14px;
     padding:16px 24px; border-bottom:1px solid var(--line);
   }}
-  .prompt-head code {{ font-family:"JetBrains Mono",monospace; font-size:13px; color:var(--frost-dim); }}
+  .prompt-label {{
+    font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--frost-dim);
+  }}
   .copy {{
     font-family:inherit; font-size:13px; letter-spacing:.04em; cursor:pointer;
     color:var(--frost-dim); background:transparent;
     border:1px solid var(--line); border-radius:8px; padding:6px 12px;
   }}
-  .copy:hover {{ color:var(--works); border-color:var(--works); }}
+  .copy:hover {{ color:var(--tone); border-color:var(--tone); }}
   .prompt-body {{
-    margin:0; padding:20px 24px; max-height:540px; overflow:auto;
+    margin:0; padding:20px 24px; max-height:560px; overflow:auto;
     font-family:"JetBrains Mono",monospace; font-size:13.5px; line-height:1.72;
     white-space:pre-wrap; word-break:normal; overflow-wrap:break-word;
     color:var(--frost-dim);
   }}
-  mark {{ background:rgba(95,227,177,.15); color:var(--frost); border-radius:3px; padding:2px 5px; }}
-  mark.gear {{ box-shadow:inset 3px 0 0 var(--works); }}
-  mark.clause {{ box-shadow:inset 3px 0 0 var(--works); }}
-
-  footer {{ border-top:1px solid var(--line); padding:40px 0 0; margin-top:60px; color:var(--frost-dim); font-size:15px; }}
-  footer a {{ color:var(--works); }}
 
   @media (max-width:980px) {{
     .card-body {{ grid-template-columns:1fr; }}
@@ -483,52 +474,22 @@ def page(entries: list[dict], wf_name: str) -> str:
   <div class="brand"><b>Loop Forge</b><span>MiniMax H3 camera shots</span></div>
   <nav>
     <a href="{REPO_URL}">Repository</a>
-    <a href="{REPO_URL}#readme">Skills</a>
     <a href="https://www.youtube.com/@LoopForge0">YouTube</a>
   </nav>
 </div>
 
 <div class="wrap">
-  <section class="hero">
-    <h1>Fourteen camera shots,<br>and the prompts behind them</h1>
-    <p>MiniMax H3 documents <strong>twelve camera motions</strong> and no named shots. A crash zoom, a
-       dolly zoom or a snorricam is something you compose out of those motions in a sentence. Every shot
-       below rides the same six section Ref2VA scaffold, and the marked sentence is what turns it into a
-       named shot.</p>
-    <p>Everything is here: the clip, the exact prompt that produced it byte for byte, the character
-       reference plates, and the ComfyUI workflow. Nothing has been tidied up for publication.</p>
-    <div class="meta">
-      <span>developed <b>864&times;480</b> on an <b>RTX 3060</b></span>
-      <span>finished <b>1344&times;768</b> on a rented <b>RTX 5090</b></span>
-      <span><b>20 steps</b>, turbo off</span>
-      <span>seed <b>{SEED}</b></span>
-      <span><b>{len(entries)}</b> clips, <b>{total_mb:.0f} MB</b></span>
-    </div>
-    <dl class="legend">{legend}</dl>
-  </section>
-
   <div class="filters">
     <button class="chip" data-filter="all" aria-pressed="true">all<span class="n">{len(entries)}</span></button>
-    {nav}
+    {chips}
   </div>
 
   <main>
 {cards}
   </main>
-
-  <footer>
-    <p>The two marked passages in each prompt are the <strong>camera and lens</strong> and the
-       <strong>camera clause</strong>. They are sliced out of the prompt files in this repository by
-       <code>scripts/build_site.py</code>, so what you read here is what actually ran.</p>
-    <p>One caveat worth stating: the snorricam clip is <b>864&times;480</b> from the local pass rather than
-       native resolution. It was kept because the shot is better.</p>
-    <p><a href="{REPO_URL}">github.com/loopforge0/minimaxh3-shots-skills</a> &middot;
-       <a href="https://www.youtube.com/@LoopForge0">youtube.com/@LoopForge0</a></p>
-  </footer>
 </div>
 
 <script>
-  // filters
   const chips = document.querySelectorAll('.chip');
   const cards = document.querySelectorAll('.card');
   chips.forEach(c => c.addEventListener('click', () => {{
@@ -537,7 +498,6 @@ def page(entries: list[dict], wf_name: str) -> str:
     cards.forEach(card => {{ card.hidden = !(f === 'all' || card.dataset.group === f); }});
   }}));
 
-  // copy prompt
   document.querySelectorAll('.copy').forEach(b => b.addEventListener('click', async () => {{
     const el = document.getElementById(b.dataset.target);
     try {{
@@ -545,11 +505,6 @@ def page(entries: list[dict], wf_name: str) -> str:
       const was = b.textContent; b.textContent = 'Copied';
       setTimeout(() => {{ b.textContent = was; }}, 1400);
     }} catch (e) {{ b.textContent = 'Press Ctrl C'; }}
-  }}));
-
-  // only one clip plays at a time
-  document.querySelectorAll('video').forEach(v => v.addEventListener('play', () => {{
-    document.querySelectorAll('video').forEach(o => {{ if (o !== v) o.pause(); }});
   }}));
 </script>
 </body>
@@ -571,14 +526,7 @@ def main() -> None:
     (DOCS / "index.html").write_text(page(entries, wf_name), encoding="utf-8", newline="\n")
     (DOCS / ".nojekyll").write_text("", encoding="utf-8")
 
-    # the page links prompts/ directly, so Pages needs a copy inside docs/
-    dst = DOCS / "prompts"
-    dst.mkdir(exist_ok=True)
-    for e in entries:
-        shutil.copy2(PROMPTS / e["promptFile"], dst / e["promptFile"])
-
-    total = sum(e["clipBytes"] for e in entries) / 1e6
-    print(f"\n{len(entries)} shots -> docs/index.html  ({total:.0f} MB of clips)")
+    print(f"\n{len(entries)} shots -> docs/index.html")
 
 
 if __name__ == "__main__":
