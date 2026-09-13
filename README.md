@@ -8,7 +8,7 @@ H3 has **twelve documented camera primitives and no named compound shots.** Ther
 Every film shot has to be composed out of the twelve, in a sentence, and most of the ways of doing that do
 not work. This repository is fourteen that do, and the reasons.
 
-### 📺 [See all fourteen shots, with their prompts →](https://loopforge.cc/minimaxh3-shots-skills/)
+### 📺 [See all fourteen shots, with their prompts →](https://loopforge.cc/projects/h3-camera-shots/)
 
 The gallery plays every clip next to the exact prompt that produced it, with the camera and lens phrase and
 the camera clause marked, and download links for the clip, the prompt, the character reference plates and
