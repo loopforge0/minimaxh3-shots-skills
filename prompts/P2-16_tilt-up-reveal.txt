@@ -1,0 +1,16 @@
+subject_definitions:
+<Subject 1> is the person in <Picture 1>.
+
+summary:
+[reference generation] The target video shows <Subject 1> standing still in a narrow city street at night in heavy rain, in a close shot of her feet, as the camera performs a tilt up reveal.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - her face, identity and clothing are held identical to <Picture 1> in every frame with zero drift.
+
+detailed_description:
+The target video is live-action and cinematic.
+[Shot 1] A chest-height camera angled down frames only <Subject 1>'s feet and lower legs, her face out of frame, standing in place in the middle of the wet street, breathing softly, hair and clothing stirring in the air, blinking and shifting her weight a little as people naturally do, with glowing shop signs, parked cars beaded with rain, puddles reflecting neon, and steam rising from a grate behind her. The camera stays in one place and tilts up at slow speed, travelling up her legs, body and shoulders, and comes to rest on her face in a medium close-up, so she is only revealed at the end.
+
+overall_soundscape: Steady heavy rain on the street and on car roofs throughout, with a distant siren passing
+
+non_diegetic_music: N/A

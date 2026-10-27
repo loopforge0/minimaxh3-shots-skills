@@ -1,0 +1,16 @@
+subject_definitions:
+<Subject 1> is the person in <Picture 1>, with straight shoulder-length auburn hair, light freckles and a burgundy knit jumper.
+
+summary:
+[reference generation] The target video shows <Subject 1> on an empty desert highway at golden hour, getting ready in a rapid, rhythmic cut-away montage of quick inserts.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1] to [Shot 7]): fully_preserved - her face, identity and clothing (straight shoulder-length auburn hair, light freckles and a burgundy knit jumper) are held identical to <Picture 1> in every shot, and the hands in the inserts are her own.
+
+detailed_description:
+The target video is live-action and cinematic.
+[Shot 1] A tight close-up frames her face on the centre line of the highway, with red sandstone mesas, wooden telephone poles along the shoulder, a faded road sign and the road running to the horizon soft behind her; her eyes narrow with focus as she decides. [Shot 2] At 00:01.300, the shot cuts to an extreme close-up insert, close on the action as she reaches to snatch a set of car keys off a dusty bonnet with the right hand. [Shot 3] At 00:01.700, the shot cuts to an extreme close-up insert, as she pulls the seatbelt and clicks it into place. [Shot 4] At 00:02.100, the shot cuts to an extreme close-up insert, close on the action as she reaches to slide on a pair of dark sunglasses with both hands, sitting in the driver's seat. [Shot 5] At 00:02.500, the shot cuts to an extreme close-up insert, close on the action as she reaches to shove the gear stick forward with the right hand, the left hand staying on the steering wheel. [Shot 6] At 00:02.900, the shot cuts to an extreme close-up on her face, now in the driver's seat of the car, with the steering wheel, dashboard and windscreen all around, the desert highway beyond and the dark sunglasses on, as her gaze snaps up, sharp and ready. [Shot 7] At 00:03.300, the shot cuts to a tight close-up of her face, still in the driver's seat of the car, with the steering wheel, dashboard and windscreen all around, the desert highway beyond and the dark sunglasses on, now still and ready, and she looks up into the lens with a small, sure smile.
+
+overall_soundscape: A dry desert wind continues throughout, with the faint hum of the telephone wires, cut into a tight rhythm: a sharp click, snap, whoosh or thud on every insert, then a beat of quiet
+
+non_diegetic_music: N/A

@@ -1,0 +1,16 @@
+subject_definitions:
+<Subject 1> is the person in <Picture 1>, with long sleek straight pastel-pink hair with a soft fringe, small silver ear cuffs, a fitted pink cropped tank top and a pleated black mini skirt.
+
+summary:
+[reference generation] The target video shows <Subject 1> lying sideways across a velvet armchair in a stylish loft apartment at night, in a wide shot of the place, as the camera performs a slow pan reveal.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - her face, identity and clothing (long sleek straight pastel-pink hair with a soft fringe, small silver ear cuffs, a fitted pink cropped tank top and a pleated black mini skirt) are held identical to <Picture 1> in every frame with zero drift.
+
+detailed_description:
+The target video is live-action and cinematic.
+[Shot 1] A wide shot looks across floor-to-ceiling windows over the city lights, shelves of vinyl records, a pink neon sign on the wall that reads "loopforge" in lowercase letters, and tall potted plants in the living room, with no one in view. The camera stays in one place and pans right at slow speed across the place, and comes to rest on <Subject 1> lying sideways across a wide velvet armchair at the right, her back propped against one arm of the armchair and her legs draped over the other arm, her lower legs hanging in the air off the side of the armchair and not resting on anything, scrolling on her phone, framing her in a medium shot as the screen lights her face.
+
+overall_soundscape: The quiet hum of the city outside and the soft tap of a thumb on a phone screen
+
+non_diegetic_music: A single sustained low string note swells partway through the shot, then fades toward the end

@@ -1,0 +1,16 @@
+subject_definitions:
+<Subject 1> is the person in <Picture 1>, with long straight jet-black hair with a blunt fringe, dark winged eyeliner, plum lipstick, a small nose ring, grey line tattoos down both arms and across her collarbone, a black lace corset and a dark plaid pleated skirt.
+
+summary:
+[reference generation] The target video shows <Subject 1> standing still in an old gothic cemetery at dusk, in a low-angle medium close-up from the waist up, looking up, as the camera performs a low-angle hero shot.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - her face, identity and clothing (long straight jet-black hair with a blunt fringe, dark winged eyeliner, plum lipstick, a small nose ring, grey line tattoos down both arms and across her collarbone, a black lace corset and a dark plaid pleated skirt) are held identical to <Picture 1> in every frame with zero drift.
+
+detailed_description:
+The target video is live-action and cinematic.
+[Shot 1] A low-angle medium close-up from the waist up, the lens just above the ground and tilted up, looks up at <Subject 1> against the sky, standing in place on the path between the graves, breathing softly, hair and clothing stirring in the air, blinking and shifting her weight a little as people naturally do, with weathered stone angels, leaning headstones, a wrought-iron gate and bare twisted trees behind her. The camera stays low near the ground and tilted up at her the whole time, and pushes in at slow speed until she towers over the frame, her face high in the shot, looking down past the lens.
+
+overall_soundscape: Wind through bare branches and a distant crow
+
+non_diegetic_music: A single sustained low string note swells partway through the shot, then fades toward the end

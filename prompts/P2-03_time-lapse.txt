@@ -1,0 +1,16 @@
+subject_definitions:
+<Subject 1> is the person in <Picture 1>, with shoulder-length dark brown wavy hair, blue-grey eyes and an oatmeal cable-knit sweater.
+
+summary:
+[reference generation] The target video shows <Subject 1> in a narrow city street at night in heavy rain, standing still at normal speed while the world around rushes past in time-lapse.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - her face, identity and clothing (shoulder-length dark brown wavy hair, blue-grey eyes and an oatmeal cable-knit sweater) are held identical to <Picture 1> in every frame.
+
+detailed_description:
+The target video is live-action and cinematic.
+[Shot 1] A static medium-wide shot, locked off on a tripod, frames <Subject 1> standing still and centred in the middle of the wet street, with glowing shop signs, parked cars beaded with rain, puddles reflecting neon, and steam rising from a grate around her. Everything around her plays as a fast time-lapse: crowds of people stream past on both sides as soft blurred streaks, cars and lights race by, clouds rush across the sky and the light shifts and flickers as the hours pass. Only <Subject 1> moves at normal speed, breathing slowly, blinking, and turning her head a little, perfectly sharp in the middle of the rushing blur.
+
+overall_soundscape: Steady heavy rain on the street and on car roofs throughout, with a distant siren passing, sped up into a rushing, washing blur of footsteps, voices and traffic
+
+non_diegetic_music: N/A

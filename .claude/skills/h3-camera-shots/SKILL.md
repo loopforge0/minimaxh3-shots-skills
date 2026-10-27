@@ -1,6 +1,6 @@
 ---
 name: h3-camera-shots
-description: Write MiniMax H3 prompts for a named camera shot - dolly zoom, crash zoom, whip pan, snorricam, 360 orbit, crane rise, aerial pullback, handheld, yo-yo zoom, dutch angle, eyes-in, rack focus, split screen, super dolly in. Use when a request names a camera move, a film shot or a director's shot, when a generated shot has the wrong camera motion, or when composing the camera clause of a Ref2VA / T2VA prompt. Pairs with MiniMax's own h3-prompt-writing skill, which owns the prompt format.
+description: Write MiniMax H3 prompts for a named camera shot - dolly zoom, crash zoom in and out, whip pan, snorricam, 360 orbit, crane rise, crane down, jib up, aerial pullback, handheld, yo-yo zoom, dutch angle, eyes-in, rack focus, split screen, super dolly in, POV, slow pan reveal, tilt up reveal, time-lapse, fisheye, cut-away montage, hero spin, rooftop swing, FPV drone, overhead swing, walk past camera, low-angle hero. Use when a request names a camera move, a film shot or a director's shot, when a generated shot has the wrong camera motion, or when composing the camera clause of a Ref2VA / T2VA prompt. Pairs with MiniMax's own h3-prompt-writing skill, which owns the prompt format.
 compatibility: Reads local files only. No API calls, no proprietary runtime. Works in any agent that can read a directory.
 ---
 
@@ -45,6 +45,8 @@ reason to judge the first generation.
 5. **Use the settings in `references/settings.md`.** Some of them are load-bearing; a 4-step turbo
    render suppresses camera motion almost entirely, regardless of how good the prompt is.
 6. **Judge it, then iterate.** That is the `h3-shot-iteration` skill.
+7. **For a crash zoom, ramp the render.** H3 takes 1.7 to 2.6 s over a "snap" zoom whatever the
+   prompt says. Run `python scripts/snap.py raw.mp4 out.mp4` afterwards; it needs ffmpeg.
 
 ## The four rules
 
@@ -85,7 +87,7 @@ Read these before spending an iteration on them.
 
 | Path | What it is |
 |---|---|
-| `shots/INDEX.md` | All fourteen shots, one line each |
+| `shots/INDEX.md` | All twenty-nine shots, one line each, by part |
 | `shots/*.md` | One recipe per shot: effect, primitives, shot line, framing, gotchas |
 | `references/scaffold.md` | The six-section Ref2VA prompt skeleton with slot notes |
 | `references/camera-grammar.md` | The twelve primitives, modifiers, and what each measured |
@@ -97,11 +99,13 @@ Read these before spending an iteration on them.
 | `references/settings.md` | Generation settings that change whether the move happens at all |
 | `references/upstream.md` | MiniMax's guide and skill, and how to fetch them |
 | `../../../prompts/` | The exact prompts behind every verified shot, byte for byte |
+| `../../../scripts/snap.py` | Ramps a rendered crash zoom down to three frames. H3 will not snap on its own |
 
 ## Provenance
 
-Every rule here came out of roughly 80 generations on one subject set, developed at 864x480 on an
-RTX 3060 and re-run at 1344x768 on a rented RTX 5090. Sample sizes are stated where they are small.
+The Part 1 rules came out of roughly 80 generations on one subject set, developed at 864x480 on an
+RTX 3060 and re-run at 1344x768 on a rented RTX 5090. Part 2 was rendered at 1344x768 on both cards, on a
+wider cast. Sample sizes are stated where they are small.
 Several findings in this library replaced an earlier finding that turned out to be wrong; where that
 happened, the retraction is written down rather than deleted, because the failure is usually more
 useful than the rule.

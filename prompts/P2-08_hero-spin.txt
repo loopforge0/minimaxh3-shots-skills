@@ -1,0 +1,16 @@
+subject_definitions:
+<Subject 1> is the person in <Picture 1>, with long wavy ginger-red hair, freckles, a cream short-sleeve t-shirt, a dark cord necklace with a metal cross, and high-waisted blue jeans with a brown belt.
+
+summary:
+[reference generation] The target video shows <Subject 1> standing still on the surface of Mars, in a low-angle medium shot, as the camera performs a hero spin.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - her face, identity and clothing (long wavy ginger-red hair, freckles, a cream short-sleeve t-shirt, a dark cord necklace with a metal cross, and high-waisted blue jeans with a brown belt) are held identical to <Picture 1> in every frame with zero drift.
+
+detailed_description:
+The target video is live-action and cinematic.
+[Shot 1] A low-angle medium shot looks up at <Subject 1>, crouched low, standing in place on the red rocky plain, breathing softly, hair and clothing stirring in the air, blinking and shifting her weight a little as people naturally do, with rust-red boulders, jagged cliffs, a white landing module and a butterscotch sky behind her. The camera sits low near the ground and performs an arc shot around her with large amplitude at fast speed, circling her while looking up, as she slowly rises from the crouch to full height, the sky wheeling behind her. As the shot plays out, <Subject 1>'s face moves from strain to fierce resolve as she rises.
+
+overall_soundscape: A thin, faint wind and fine dust hissing over the rocks
+
+non_diegetic_music: N/A

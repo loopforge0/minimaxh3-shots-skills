@@ -1,0 +1,16 @@
+subject_definitions:
+<Subject 1> is the person in <Picture 1>.
+
+summary:
+[reference generation] The target video shows <Subject 1> standing still in a Wild West frontier town, in a high wide shot from above, as the camera performs a crane down.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - her face, identity and clothing are held identical to <Picture 1> in every frame with zero drift.
+
+detailed_description:
+The target video is live-action and cinematic.
+[Shot 1] A high wide shot from well above looks down on <Subject 1>, standing in place in the middle of the dusty main street, breathing softly, hair and clothing stirring in the air, blinking and shifting her weight a little as people naturally do, with a saloon, a general store, hitching posts with horses and a wooden boardwalk behind her. The camera cranes down at slow speed, pedestalling down and tilting up as it descends, and comes to rest at eye level in a medium close-up of her face.
+
+overall_soundscape: A hot dry wind, a horse snorting and a saloon door creaking
+
+non_diegetic_music: N/A

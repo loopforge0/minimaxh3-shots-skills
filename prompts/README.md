@@ -1,7 +1,8 @@
 # The exact prompts
 
-Seventeen prompts, copied byte for byte from what was actually sent to the model rather than tidied up
-afterwards. These are the renders the shot recipes were written from.
+Thirty-three prompts, copied byte for byte from what was actually sent to the model rather than tidied up
+afterwards: seventeen from Part 1 and sixteen from Part 2 (`P2-` prefix). These are the renders the shot
+recipes were written from.
 
 ## ⚠️ These are not templates
 
@@ -27,6 +28,8 @@ reads; do not start from them.
 
 ## What is here
 
+### Part 1
+
 Every one ran at **1344x768, 20 steps, `res_multistep` / `simple`, turbo LoRA off, seed 552013742**, on
 `MiniMaxH3ReferenceToVideo` with `ref_image_size: max` and **no background plate**.
 
@@ -50,6 +53,35 @@ Every one ran at **1344x768, 20 steps, `res_multistep` / `simple`, turbo LoRA of
 | `X-01b` | Dolly Zoom, every invariant clause stacked | 124 | `<Picture 1>` sofia |
 | `K-06n` | Dolly Zoom, the base recipe on a concert stage | 124 | `<Picture 1>` amber |
 
+### Part 2
+
+Every one ran at **1344x768, 20 steps, turbo LoRA off**, on `MiniMaxH3ReferenceToVideo` with **one character
+plate** wired as `<Picture 1>` and **no background plate**. Seed 7 unless stated. The `P2-` number is the order
+the shots appear in the Part 2 video.
+
+Part 2 prompts are written more plainly than Part 1's: no gear line, which Part 1 found cosmetic, and a short
+subject definition, sometimes just *"the person in `<Picture 1>`"*. They use a wider cast of characters and
+locations than Part 1.
+
+| ID | Shot | Frames | Notes |
+|---|---|---|---|
+| `P2-01` | POV shot | **192** | The called name is a dialogue line spoken by the unseen viewer |
+| `P2-02` | Slow pan reveal | 124 | |
+| `P2-03` | Time-lapse crowd | 124 | |
+| `P2-04` | Fisheye close-up | 124 | **seed 11** |
+| `P2-05` | Cut-away montage | 124 | The seatbelt insert (`[Shot 3]`) was shortened by hand |
+| `P2-06` | Crash zoom in, Part 2 wording | 124 | Shipped after `scripts/snap.py`: zoom at frames 42-104, ramped to 3 frames |
+| `P2-07` | Crash zoom out | 124 | Shipped after `scripts/snap.py`: zoom at frames 71-112, ramped to 3 frames |
+| `P2-08` | Hero spin | 124 | |
+| `P2-09` | Rooftop swing | 124 | |
+| `P2-10` | FPV drone dive | 124 | |
+| `P2-11` | Overhead swing | 124 | |
+| `P2-12` | Walk past camera | 124 | |
+| `P2-13` | Crane down | 124 | |
+| `P2-14` | Jib up | 124 | |
+| `P2-15` | Low-angle hero shot | 124 | |
+| `P2-16` | Tilt up reveal | 124 | |
+
 The reference images themselves are not published. They are personal character plates, and none of the
 findings depend on the specific faces.
 
@@ -61,7 +93,7 @@ wiring and `<Picture 2>` is unresolvable, which is why the table above exists.
 
 ## The format
 
-All seventeen use the six-section Ref2VA structure from MiniMax's own guide:
+All thirty-three use the six-section Ref2VA structure from MiniMax's own guide:
 
 ```
 subject_definitions:     what each <Subject N> is, and which <Picture N> it comes from
@@ -85,6 +117,8 @@ rather than corrected:
 | `C-01b_crash-zoom-in-hold-then-snap.txt` | States a 2s hold and a 200ms snap. H3 picks its own window |
 | `K-06n_dolly-zoom-k06.txt` | Names a Cooke S4, a prime, on a shot that has to zoom. It was thought to matter and it turns out not to |
 | `C-05_crane-drone-rise.txt` | Says "flown on a drone" in the style line. Naming equipment in an audio-adjacent slot is a rule this library now advises against |
+| `P2-06_crash-zoom-in.txt`, `P2-07_crash-zoom-out.txt` | Ask for "two or three frames, as abrupt as a cut". H3 took 2.6 s and 1.7 s. The clips only snap because `scripts/snap.py` ramped them afterwards |
+| `P2-15_low-angle-hero.txt` | The waist-up opening is why the angle is mild. See `shots/low-angle-hero.md` |
 
 Line endings are LF.
 

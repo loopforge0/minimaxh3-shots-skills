@@ -1,0 +1,16 @@
+subject_definitions:
+<Subject 1> is the person in <Picture 1>.
+
+summary:
+[reference generation] The target video shows <Subject 1> on a cyberpunk megacity street at night, leaping from a rooftop and swinging on a line in a huge arc across the gap between two tall buildings.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - her face, identity and clothing are held identical to <Picture 1> in every frame with zero drift.
+
+detailed_description:
+The target video is live-action and cinematic.
+[Shot 1] A wide shot frames <Subject 1> crouched on the edge of a high rooftop on the rain-slicked street, with towers covered in holographic adverts, an elevated train track, flying cars and neon stalls far below and around her, gripping a thin silver line that runs up to the top of a taller building across the street. She leaps off the edge and swings down on the line in one huge arc across the gap between the buildings, the street rushing past far below her, her hair and clothes streaming with the speed. The camera performs a tracking shot behind and slightly to one side of her through the air with large amplitude at fast speed, following the whole swing, so through the swing she faces away from the camera toward the next building, her back to the lens. At the bottom of the arc she sweeps up toward the next building, lets go at the top of the swing, sails through the air and lands crouched on its rooftop ledge, still facing away from the camera. Then she stands up and turns around on the spot, stepping and pivoting her whole body through a half turn so that she ends facing the camera, and looks back across the gap with a breathless grin. As the shot plays out, <Subject 1> grins with breathless exhilaration as she lands.
+
+overall_soundscape: A dense city hum, an overhead train rattling past and distant electronic announcements, then wind roaring past as she swings, the creak of the taut line, and a solid thud as she lands
+
+non_diegetic_music: A driving, heroic orchestral theme with pounding drums

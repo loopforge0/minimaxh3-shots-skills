@@ -1,0 +1,16 @@
+subject_definitions:
+<Subject 1> is the person in <Picture 1>.
+
+summary:
+[reference generation] The target video shows <Subject 1> standing still on a wide beach at sunset, in a top-down overhead shot, as the camera performs a swing down from overhead.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - her face, identity and clothing are held identical to <Picture 1> in every frame with zero drift.
+
+detailed_description:
+The target video is live-action and cinematic.
+[Shot 1] A top-down overhead shot, the camera a few metres directly above <Subject 1> with its lens pointing straight down, a bird's-eye view of <Subject 1> from head to toe with the ground around and looking up into the lens, standing in place on the wet sand, breathing softly, hair and clothing stirring in the air, blinking and shifting her weight a little as people naturally do, with a lifeguard tower, wooden groynes, gentle waves and a distant pier behind her. The camera swings down in front of her in a smooth quarter-circle arc at slow speed, keeping the same distance from her the whole way: it travels from straight above her head down to her eye level on the side she is facing, tilting from pointing straight down to pointing level as it goes so her face stays centred, and ends face-on to her in a medium shot with the horizon level behind her. It never passes behind her, and it does not dive, fly forward or drop straight down. As the shot plays out, <Subject 1> looks up into the lens with a small, curious smile, tucks a strand of hair behind her ear as the breeze lifts it, and lowers her chin to follow the camera down.
+
+overall_soundscape: Gentle waves breaking and gulls calling in the distance
+
+non_diegetic_music: N/A

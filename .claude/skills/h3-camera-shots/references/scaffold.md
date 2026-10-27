@@ -68,16 +68,25 @@ same way. Each shot declares `shot_intro`:
 | `shot_intro` | `[Shot 1]` becomes | Used by |
 |---|---|---|
 | `frames` *(default)* | `{FRAMING} frames {SUBJECT} {SUBJECT_ACTION}, with …` | most shots |
-| `comma` | `{FRAMING}, {SUBJECT_ACTION}, with …` | super dolly in, crash zoom in |
-| `sentence` | `{FRAMING}. {SUBJECT} is {SUBJECT_ACTION}, with …` | yo-yo zoom, rack focus |
-| `custom` | `{SHOT_LINE}` alone — the shot owns its whole description | split screen |
+| `comma` | `{FRAMING}, {SUBJECT_ACTION}, with …` | super dolly in, crash zoom in, and most Part 2 shots |
+| `sentence` | `{FRAMING}. {SUBJECT} is {SUBJECT_ACTION}, with …` | yo-yo zoom, rack focus, crash zoom out |
+| `custom` | `{SHOT_LINE}` alone — the shot owns its whole description | split screen, POV, slow pan reveal, time-lapse, cut-away montage, rooftop swing |
 
 These match how the prompts that actually shipped were written. Get it wrong and you get *"…at the far end of
 it frames `<Subject 1>` standing…"*.
 
 Some shots add their own slots, and `--slots` prints those with a one-line hint each: a super dolly in needs
 `{THE_SPACE}`, `{NEAR_OBJECTS}`, `{FURTHER_OBJECTS}` and `{GROUND}`; a split screen needs its three panel
-angles.
+angles; a cut-away montage needs its four inserts.
+
+A few Part 2 shots also change lines outside `[Shot 1]`, through optional keys in their machine-readable
+block:
+
+| Key | What it does | Used by |
+|---|---|---|
+| `soundscape` | Wraps your `{SOUNDSCAPE}`, e.g. `"{SOUNDSCAPE}, sped up into a rushing ... blur"` | time-lapse, cut-away montage, rooftop swing |
+| `music` | The shot's own score. A `MUSIC` in your scene file still wins | rooftop swing |
+| `retention_line` | Replaces the `retention_analysis` line | cut-away montage (seven shots, and the hands in the inserts are the subject's own) |
 
 ## Three rules about the reference plate
 

@@ -32,10 +32,10 @@ requirement:
 
 | Shot | Why |
 |---|---|
-| `crash-zoom-in` | A crash zoom *out* opens tight and ends wide, so it inverts the framing rule. Untested here |
+| `crash-zoom-in` | A crash zoom *out* opens tight and ends wide, so it inverts the framing rule. Part 2 rendered it as its own recipe, `crash-zoom-out` |
 | `super-dolly-in` | A dolly *out* is `aerial-pullback` territory and needs different foreground staging |
 | `aerial-pullback` | The rise and the retreat are the shot |
-| `crane-rise` | `Pedestal Up` + `Tilt Down` is the move; inverting gives a descent, untested |
+| `crane-rise` | `Pedestal Up` + `Tilt Down` is the move; inverting gives a descent. Part 2 rendered it as `crane-down` |
 | `yoyo-zoom` | Out-hold-return is the shot. An in-hold-return has no name and was not tried |
 | `snorricam` | Forward walk. A backward walk was not tried and would probably fight the lock |
 | `dolly-zoom` | **Both directions exist as separate recipes.** See below |
@@ -61,27 +61,28 @@ The full documented vocabulary against what has a render behind it here. Anythin
 | Primitive | Exercised | Where |
 |---|---|---|
 | `Zoom In` | ✅ | crash zoom, yo-yo return, dolly zoom telephoto |
-| `Zoom Out` | ✅ | yo-yo departure, dolly zoom wide |
-| `Push In` | ✅ | super dolly in, eyes-in, dolly zoom wide |
+| `Zoom Out` | ✅ | yo-yo departure, dolly zoom wide, crash zoom out |
+| `Push In` | ✅ | super dolly in, eyes-in, dolly zoom wide, fisheye, low-angle hero |
 | `Pull Out` | ✅ | aerial pullback, dolly zoom telephoto |
-| `Pan Right` | ✅ | whip pan |
+| `Pan Right` | ✅ | whip pan, slow pan reveal, walk past camera |
 | `Pan Left` | ❌ **untested** | — |
 | `Truck Left` / `Truck Right` | ❌ **neither tested** | — |
-| `Tilt Down` | ✅ | crane rise |
-| `Tilt Up` | ❌ **untested** | — |
+| `Tilt Down` | ✅ | crane rise, jib up |
+| `Tilt Up` | ✅ | tilt up reveal, crane down |
 | `Pedestal Up` | ✅ | crane rise, aerial pullback |
-| `Pedestal Down` | ❌ **untested** | — |
-| `Arc Shot` | ✅ direction never specified | 360 orbit |
-| `Tracking Shot` | ✅ | crane rise, handheld |
-| `Static Shot` | ✅ | rack focus, split screen |
+| `Pedestal Down` | ✅ | crane down |
+| `Arc Shot` | ✅ direction never specified | 360 orbit, hero spin |
+| `Tracking Shot` | ✅ | crane rise, handheld, rooftop swing |
+| `Static Shot` | ✅ | rack focus, split screen, time-lapse |
 | `Shake Strongly` | ✅ | handheld |
 | `Shake Slightly` | ❌ **untested.** A different shot, a nervous lock-off | — |
 | `Roll Counterclockwise` | ✅ | dutch angle |
 | `Roll Clockwise` | ❌ **untested** | — |
-| `POV` | ❌ **untested** | — |
+| `POV` | ✅ | POV shot |
 
-**Four of the twelve have no render behind them at all**: `Truck`, `POV`, and the unexercised halves of
-`Tilt` and `Pedestal`. A truck is the obvious gap — it is a lateral translation, so it should produce
+**One of the twelve still has no render behind it at all**: `Truck`. Part 2 filled in `POV`, `Tilt Up` and
+`Pedestal Down`. The untested halves left are `Pan Left`, `Shake Slightly` and `Roll Clockwise`. A truck
+is the obvious gap — it is a lateral translation, so it should produce
 parallax the way a push does, and the foreground rule in `../shots/super-dolly-in.md` ought to apply to it.
 That is a prediction, not a result.
 

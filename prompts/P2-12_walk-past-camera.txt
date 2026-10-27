@@ -1,0 +1,16 @@
+subject_definitions:
+<Subject 1> is the person in <Picture 1>.
+
+summary:
+[reference generation] The target video shows <Subject 1> walking steadily forward in a pine forest in late autumn, in a wide shot, as the camera performs a walk-past shot.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - her face, identity and clothing are held identical to <Picture 1> in every frame with zero drift.
+
+detailed_description:
+The target video is live-action and cinematic.
+[Shot 1] A wide shot frames <Subject 1>, walking steadily forward on the forest track, hair flying and clothing snapping with the movement, with tall straight pine trunks, a carpet of orange needles, low mist between the trees, and shafts of sunlight behind her. She walks straight toward the lens, growing from a full figure to a close-up, and passes right beside the camera; the camera pans right at fast speed as she goes by, and follows her from behind as she walks on into the distance, her back to the camera.
+
+overall_soundscape: Birdsong and a light breeze through the pines throughout, with needles crunching underfoot
+
+non_diegetic_music: N/A

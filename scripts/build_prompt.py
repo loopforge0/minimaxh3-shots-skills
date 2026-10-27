@@ -247,6 +247,7 @@ def cmd_slots(shot: dict, scaffold: str, kind: str) -> None:
     vocab = {k: v for k, v in KINDS[kind].items() if v is not None}
     action = shot.get("subject_action") or MOTION.get(shot.get("motion"), ("", ""))[0]
     needed = slots_in(scaffold, shot["shot_line"], shot["framing"], action,
+                      shot.get("soundscape", ""), shot.get("retention_line", ""),
                       *[v for v in vocab.values()])
     derived = {"SHOT_LINE", "FRAMING", "FRAMING_LOWER", "SUBJECT_ACTION", "SUMMARY_ACTION",
                "SHOT_NAME", "POSSESSIVE_CAP", "PRONOUN_SUBJ_CAP"}
@@ -306,6 +307,14 @@ def build(shot: dict, scene: dict, scaffold: str) -> str:
     values.update({k: v for k, v in scene.items()
                    if not k.startswith("_") and k not in ("SUBJECT_KIND", "subject_kind")})
 
+    # A shot may add to the soundscape (an effect that changes how the world sounds) or bring its
+    # own music. The scene's SOUNDSCAPE goes where the shot's template says {SOUNDSCAPE}; a MUSIC in
+    # the scene file still wins over the shot's.
+    if "soundscape" in shot and "SOUNDSCAPE" in values:
+        values["SOUNDSCAPE"] = shot["soundscape"].replace("{SOUNDSCAPE}", values["SOUNDSCAPE"])
+    if "music" in shot and "MUSIC" not in scene:
+        values["MUSIC"] = shot["music"]
+
     poss = values.get("POSSESSIVE", "their")
     values["POSSESSIVE_CAP"] = poss[:1].upper() + poss[1:]
     subj = values.get("PRONOUN_SUBJ", "they")
@@ -341,6 +350,11 @@ def build(shot: dict, scene: dict, scaffold: str) -> str:
         count=1,
         flags=re.M,
     )
+
+    # A shot with several [Shot N] cuts, or a subject seen only in parts, states its own retention line.
+    if "retention_line" in shot:
+        template = re.sub(r"^\{SUBJECT\} \(appears in \[Shot 1\]\).*$",
+                          shot["retention_line"].replace("\\", "\\\\"), template, count=1, flags=re.M)
 
     prompt = resolve(template, values)
 

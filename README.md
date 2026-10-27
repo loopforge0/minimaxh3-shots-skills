@@ -1,18 +1,25 @@
 # MiniMax H3 camera shot skills
 
-Agent skills for writing **named camera shots** in MiniMax H3 prompts — dolly zoom, crash zoom, whip pan,
-snorricam, 360 orbit, crane rise, aerial pullback, handheld, yo-yo zoom, dutch angle, eyes-in, rack focus,
-split screen, super dolly in.
+Agent skills for writing **named camera shots** in MiniMax H3 prompts. Part 1: dolly zoom, crash zoom, whip
+pan, snorricam, 360 orbit, crane rise, aerial pullback, handheld, yo-yo zoom, dutch angle, eyes-in, rack focus,
+split screen, super dolly in. Part 2: POV, slow pan reveal, time-lapse, fisheye, cut-away montage, crash zoom
+out, hero spin, rooftop swing, FPV drone, overhead swing, walk past camera, crane down, jib up, low-angle hero,
+tilt up reveal. Plus a post-render fix for crash zooms.
 
 H3 has **twelve documented camera primitives and no named compound shots.** There is no "Dolly Zoom" button.
 Every film shot has to be composed out of the twelve, in a sentence, and most of the ways of doing that do
-not work. This repository is fourteen that do, and the reasons.
+not work. This repository is twenty-nine that do, and the reasons.
 
-### 📺 [See all fourteen shots, with their prompts →](https://loopforge.cc/projects/h3-camera-shots/)
+### 📺 [See the shots, with their prompts →](https://loopforge.cc/projects/h3-camera-shots/)
 
 The gallery plays every clip next to the exact prompt that produced it, with the camera and lens phrase and
 the camera clause marked, and download links for the clip, the prompt, the character reference plates and
 the ComfyUI workflow.
+
+**The videos**
+
+- Part 1, fourteen shots: https://www.youtube.com/watch?v=GCdKh_KaQVs
+- Part 2 video: (link added on publish)
 
 
 ## Install
@@ -22,6 +29,8 @@ git clone https://github.com/loopforge0/minimaxh3-shots-skills
 cd minimaxh3-shots-skills
 python scripts/fetch_upstream_guides.py      # pulls MiniMax's own guide, which these build on
 ```
+
+`scripts/snap.py` also needs `ffmpeg` and `ffprobe` on your PATH. Nothing else does.
 
 The skills live in `.claude/skills/`, so an agent working in this directory finds them automatically. To
 have them everywhere, copy both directories into your user skills folder:
@@ -66,6 +75,36 @@ Full index with what a viewer actually sees:
 | **Still imperfect, and the file says how** | yo-yo zoom (proportions), split screen (timing), dolly zoom (the subject lock) |
 | **Cannot be done** | bullet time. [The file explains why, and what the attempt cost](.claude/skills/h3-camera-shots/shots/bullet-time.md) |
 
+**Part 2** added fifteen, several from viewer requests:
+
+| | |
+|---|---|
+| **Camera moves** | slow pan reveal, crash zoom out, hero spin, FPV drone, overhead swing, walk past camera, crane down, jib up, low-angle hero, tilt up reveal |
+| **Effects and edits** | POV, time-lapse, fisheye, cut-away montage, rooftop swing |
+| **Took several rounds, and the file says what failed** | POV, cut-away montage, overhead swing, rooftop swing, fisheye |
+| **Verified on one render only** | crane down, jib up |
+| **Still imperfect** | fisheye (no true circular bulge), low-angle hero (the angle comes out mild) |
+| **Need `snap.py` after the render** | crash zoom in, crash zoom out |
+
+## Crash zoom fix
+
+H3 picks its own pace for a zoom. The crash zoom prompts ask for the change to take about 200 ms, or "two or
+three frames, as abrupt as a cut", and at 1344x768 the render takes **about 2.6 s** for the zoom in and **about
+1.7 s** for the zoom out. No wording tried fixed that, so the fix runs after the render:
+
+```bash
+python scripts/snap.py crash-zoom-in_raw.mp4 crash-zoom-in.mp4
+# zoom found at frames 42-104 (1.75-4.33 s, 62 frames), sped up 20.7x to 3 frames
+```
+
+`snap.py` compares every frame with the first and the last to find where the zoom starts and lands, then
+speeds that stretch up to three frames. The audio over the same stretch is sped up by the same factor with its
+pitch kept, so sound stays in sync and the clip just gets shorter. Standard library Python plus ffmpeg; it does
+not touch your prompt. It expects one hold, one zoom, one hold: a clip with two zooms, a cut, or a camera that
+keeps moving after the zoom will get the wrong window, so check the frames it reports.
+[`crash-zoom-in.md`](.claude/skills/h3-camera-shots/shots/crash-zoom-in.md) and
+[`crash-zoom-out.md`](.claude/skills/h3-camera-shots/shots/crash-zoom-out.md) have the details.
+
 **"Verified" means a person watched it and said it reads as the intended shot.** Not that a metric agreed.
 
 ## The findings, in short
@@ -105,9 +144,9 @@ gave 22%.
 vocabulary. A three-panel split screen landed with no layout primitive and no timed-event primitive. Treat
 "not in the twelve" as untested, never as impossible.
 
-**Most of the vocabulary is untested, and the file says which.** Four of the twelve primitives have no render
-behind them at all here: `Truck` in either direction, `POV`, and the unexercised halves of `Tilt` and
-`Pedestal`. Absence means nobody tried it, never that it does not work.
+**Some of the vocabulary is untested, and the file says which.** After Part 2, one of the twelve primitives
+has no render behind it at all here: `Truck`, in either direction. Part 2 filled in `POV`, `Tilt Up` and
+`Pedestal Down`. Absence means nobody tried it, never that it does not work.
 
 **And a measurement will mis-describe a shot.** Four of this project's most confident written conclusions were
 overturned by watching the clips, including one recorded as the headline finding. A metric called a crane rise
@@ -121,15 +160,16 @@ eyes. [`judging.md`](.claude/skills/h3-shot-iteration/references/judging.md)
 .claude/skills/
   h3-camera-shots/           writing the prompt
     SKILL.md
-    shots/                   15 recipes + the one that cannot be done
+    shots/                   30 recipes + the one that cannot be done
     references/              scaffold, camera grammar, framing, performance, gear,
                              subjects, direction, settings, upstream
   h3-shot-iteration/         diagnosing a generation that came back wrong
     SKILL.md
     references/              failure modes, conditioning A/B, judging
-prompts/                     the exact 17 prompts that ran, byte for byte
+prompts/                     the exact 33 prompts that ran, byte for byte (P2- for Part 2)
 scripts/
   build_prompt.py            your scene + a shot -> a complete prompt
+  snap.py                    ramps a rendered crash zoom down to three frames (needs ffmpeg)
   fetch_upstream_guides.py   pulls MiniMax's own guide into upstream/
   verify_refs.mjs            catches a ComfyUI trap that silently discards reference images
   scene.example.json         a worked scene to copy
@@ -153,10 +193,11 @@ shot needs, how it fails, and which of the available knobs turn out to do nothin
 
 ## Caveats
 
-- **One subject set, one rig, and all of them human.** Every shot was developed on four *human* character
-  plates across five locations. The `animal`, `bird` and `object` vocabularies are reasoned from the same
-  findings, not measured. Portability to a different *person* is tested for exactly one shot (the dolly zoom),
-  and that test found the recipe ports its background and loses its subject lock.
+- **All human subjects.** Part 1 was developed on four *human* character plates across five locations; Part 2
+  used a wider cast and more locations, still all human. The `animal`, `bird` and `object` vocabularies are
+  reasoned from the same findings, not measured. In Part 1, portability to a different *person* was tested for
+  exactly one shot (the dolly zoom), and that test found the recipe ports its background and loses its subject
+  lock. In Part 2, seven shots were rendered on two different people; the rest on one.
 - **One direction per shot.** Each recipe writes the direction that was rendered. The mirrors are documented
   primitives with no render behind them here.
 - **Sample sizes are small and are stated.** Several findings are n=1 or n=2 and say so.

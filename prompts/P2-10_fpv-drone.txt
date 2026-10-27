@@ -1,0 +1,16 @@
+subject_definitions:
+<Subject 1> is the person in <Picture 1>, with a short tapered fade, a neatly trimmed beard, a white linen shirt with the sleeves rolled up and beige chinos.
+
+summary:
+[reference generation] The target video shows <Subject 1> standing still on an alpine lake at dawn, in a high aerial wide shot, as the camera performs a racing-drone dive.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - his face, identity and clothing (a short tapered fade, a neatly trimmed beard, a white linen shirt with the sleeves rolled up and beige chinos) are held identical to <Picture 1> in every frame with zero drift.
+
+detailed_description:
+The target video is live-action and cinematic.
+[Shot 1] An aerial wide shot from high above an alpine lake at dawn looks down on <Subject 1>, a tiny figure far below, standing in place at the end of the jetty, breathing softly, hair and clothing stirring in the air, blinking and shifting his weight a little as people naturally do, with a wooden jetty, a red rowing boat, shoreline pines and snow-capped peaks behind him. The camera flies like a racing FPV drone: it dives steeply at fast speed, rolls and banks through the air, skims low and fast over the ground toward him, then pulls up and slows to a stop in a medium shot of <Subject 1>, his face sharp in frame.
+
+overall_soundscape: Still morning air, water lapping at the jetty and a bird calling across the lake
+
+non_diegetic_music: A single sustained low string note swells partway through the shot, then fades toward the end

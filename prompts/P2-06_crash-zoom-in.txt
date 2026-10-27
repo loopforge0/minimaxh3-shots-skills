@@ -1,0 +1,16 @@
+subject_definitions:
+<Subject 1> is the person in <Picture 1>.
+
+summary:
+[reference generation] The target video shows <Subject 1> standing still on a snow-covered arctic coastline, in a wide shot, as the camera performs a crash zoom in.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - her face, identity and clothing are held identical to <Picture 1> in every frame with zero drift.
+
+detailed_description:
+The target video is live-action and cinematic.
+[Shot 1] A wide shot places <Subject 1> small and complete in frame on the snowy rocky shore, standing in place on the snowy rocky shore, breathing softly, hair and clothing stirring in the air, blinking and shifting her weight a little as people naturally do, with dark rocky cliffs, patches of green aurora borealis in the sky, still water, and an old wooden sailing ship with tall masts behind her. The camera is locked off on a tripod and holds the wide shot completely still for the first two seconds; only the zoom lens changes and the camera body never moves. Between one frame and the next the lens crash zooms in to a tight close-up of her face: the whole change takes only two or three frames, as abrupt as a cut, with a streak of zoom blur on those few frames only, and nothing shifts against anything else, the background simply magnifies flat together with her. After it lands the close-up is locked and does not change. As the shot plays out, <Subject 1>'s expression shifts from blank and neutral into dawning realization and slight shock.
+
+overall_soundscape: A faint cold wind continues throughout, with distant creaking from the ship's rigging
+
+non_diegetic_music: A single sustained low string note swells partway through the shot, then fades toward the end

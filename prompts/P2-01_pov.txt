@@ -1,0 +1,16 @@
+subject_definitions:
+<Subject 1> is the person in <Picture 1>, with a straight dark brown shoulder-length bob and a beige crew-neck sweater.
+
+summary:
+[reference generation] The target video shows <Subject 1> on an empty desert highway at golden hour, seen in a first-person POV shot: the viewer walks up behind her and calls her name, and she turns with a smile to shake the viewer's hand.
+
+retention_analysis:
+<Subject 1> (appears in [Shot 1]): fully_preserved - her face, identity and clothing (a straight dark brown shoulder-length bob and a beige crew-neck sweater) are held identical to <Picture 1>; her hair and clothes from behind at first, and her face from the moment she turns around.
+
+detailed_description:
+The target video is live-action and cinematic.
+[Shot 1] A first-person POV shot on the centre line of the highway: the camera is the eyes of someone taking a few slow steps forward toward <Subject 1>, who stands just ahead with her back to the camera, bent over the engine under the propped-up hood of an old dusty car at the roadside, tightening something with a spanner, busy at it and moving the whole time, with red sandstone mesas, wooden telephone poles along the shoulder, a faded road sign and the road running to the horizon around. The camera stops a couple of steps behind her, and the unseen viewer (S1), in a warm voice, slightly surprised and questioning, calls out: <d>[English] Mei?</d> <Subject 1> hears her name, stops what she is doing, turns around to face the camera, recognises the viewer and breaks into a warm smile. Then she steps closer and holds out her hand toward the lens, and one hand reaches in from the bottom right of the frame to take her hand, and they shake hands.
+
+overall_soundscape: A dry desert wind continues throughout, with the faint hum of the telephone wires, with soft footsteps approaching and a warm, surprised laugh
+
+non_diegetic_music: N/A
